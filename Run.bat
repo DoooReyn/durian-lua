@@ -1,0 +1,1 @@
+start F:\dev\quick-4.0.1\tools\runner\bin\win32\LuaGameRunner.exe --width 1136 --height 640 --scale 50 --log --gamedir ./ --writedir ./cache
