@@ -104,7 +104,7 @@ function crypto.md5file(path)
         return nil
     end
     path = tostring(path)
-    if DEBUG > 1 then
+    if GG.Env.DEBUG > 1 then
         printInfo("crypto.md5file() - filename: %s", path)
     end
     return cc.Crypto:MD5File(path)

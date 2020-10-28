@@ -296,6 +296,17 @@ end
 -->>>>>> math <<<<<<--
 
 --[[
+  get a value between min_inclusive and max_inclusive.
+  @function math.clamp
+]]
+function math.clamp(value, min_inclusive, max_inclusive)
+  if min_inclusive > max_inclusive then
+      min_inclusive, max_inclusive = max_inclusive, min_inclusive
+  end
+  return math.max(math.min(max_inclusive, value), min_inclusive)
+end
+
+--[[
   Initialize random seed according to system time.
   @function math.newrandomseed
 ]]--

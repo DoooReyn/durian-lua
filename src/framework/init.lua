@@ -2,9 +2,15 @@ print("===========================================================")
 print("              LOAD Cocos2d-Lua-Community FRAMEWORK")
 print("===========================================================")
 
-if type(DEBUG) ~= "number" then DEBUG = 0 end
-if type(DEBUG_FPS) ~= "boolean" then DEBUG_FPS = false end
-if type(DEBUG_MEM) ~= "boolean" then DEBUG_MEM = false end
+if type(GG.Env.DEBUG) ~= "number" then
+    GG.Env.DEBUG = 0
+end
+if type(GG.Env.DEBUG_FPS) ~= "boolean" then
+    GG.Env.DEBUG_FPS = false
+end
+if type(GG.Env.DEBUG_MEM) ~= "boolean" then
+    GG.Env.DEBUG_MEM = false
+end
 
 local CURRENT_MODULE_NAME = ...
 
@@ -15,15 +21,15 @@ require(cc.PACKAGE_NAME .. ".debug")
 require(cc.PACKAGE_NAME .. ".functions")
 
 printInfo("")
-printInfo("# DEBUG                        = "..DEBUG)
+printInfo("# DEBUG                        = " .. GG.Env.DEBUG)
 printInfo("#")
 
-device     = require(cc.PACKAGE_NAME .. ".device")
-display    = require(cc.PACKAGE_NAME .. ".display")
-audio      = require(cc.PACKAGE_NAME .. ".audio")
-network    = require(cc.PACKAGE_NAME .. ".network")
-crypto     = require(cc.PACKAGE_NAME .. ".crypto")
-json       = require(cc.PACKAGE_NAME .. ".json")
+device = require(cc.PACKAGE_NAME .. ".device")
+display = require(cc.PACKAGE_NAME .. ".display")
+audio = require(cc.PACKAGE_NAME .. ".audio")
+network = require(cc.PACKAGE_NAME .. ".network")
+crypto = require(cc.PACKAGE_NAME .. ".crypto")
+json = require(cc.PACKAGE_NAME .. ".json")
 require(cc.PACKAGE_NAME .. ".shortcodes")
 require(cc.PACKAGE_NAME .. ".NodeEx")
 require(cc.PACKAGE_NAME .. ".WidgetEx")
@@ -36,24 +42,22 @@ elseif device.platform == "mac" then
     require(cc.PACKAGE_NAME .. ".platform.mac")
 end
 
-
 local sharedTextureCache = cc.Director:getInstance():getTextureCache()
 local sharedDirector = cc.Director:getInstance()
 
-if DEBUG_FPS then
+if GG.Env.DEBUG_FPS then
     sharedDirector:setDisplayStats(true)
 else
     sharedDirector:setDisplayStats(false)
 end
 
-if DEBUG_MEM then
-    local sharedTextureCache = cc.Director:getInstance():getTextureCache()
+if GG.Env.DEBUG_MEM then
     local function showMemoryUsage()
         printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
         printInfo(sharedTextureCache:getCachedTextureInfo())
         printInfo("---------------------------------------------------")
     end
-    sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, DEBUG_MEM_INTERVAL or 10.0, false)
+    sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, GG.Env.DEBUG_MEM_INTERVAL or 10.0, false)
 end
 
 -- export global variable

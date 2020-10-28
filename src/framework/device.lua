@@ -81,14 +81,14 @@ printInfo("#")
 
 function device.getOpenUDID()
     local ret = cc.Device:getOpenUDID()
-    if DEBUG > 1 then
+    if GG.Env.DEBUG > 1 then
         printInfo("device.getOpenUDID() - Open UDID: %s", tostring(ret))
     end
     return ret
 end
 
 function device.openURL(url)
-    if DEBUG > 1 then
+    if GG.Env.DEBUG > 1 then
         printInfo("device.openURL() - url: %s", tostring(url))
     end
     sharedApplication:openURL(url)
