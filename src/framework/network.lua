@@ -240,7 +240,7 @@ function network.parseCookie(cookieString)
                 access = parseTrueFalse(parts[2]),
                 path = parts[3],
                 secure = parseTrueFalse(parts[4]),
-                expire = checkint(parts[5]),
+                expire = GG.Checker.Int(parts[5]),
                 name = parts[6],
                 value = string.urldecode(parts[7]),
             }

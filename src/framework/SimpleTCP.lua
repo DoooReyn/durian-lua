@@ -12,11 +12,9 @@ local socket = require "socket"
 if not socket then return end
 
 local scheduler = require("framework.scheduler")
-local SimpleTCP = class("SimpleTCP")
+local SimpleTCP = GG.Class("SimpleTCP")
 
 local string = string
-local pairs = pairs
-local print = GG.Console.P
 local assert = assert
 
 --------- class var and method --------------
@@ -67,7 +65,7 @@ function SimpleTCP:connect()
 		self:_connectAndCheck()
 		-- start global scheduler
 		assert(not self.globalUpdateHandler, "SimpleTCP:connect status wrong, need reviewing!")
-		self.globalUpdateHandler = scheduler.scheduleUpdateGlobal(handler(self, self._update))
+		self.globalUpdateHandler = scheduler.scheduleUpdateGlobal(GG.Pack(self, self._update))
 	else
 		-- if "closed", create a new LuaSocket
 		cc.Network:isIPv6(self.host, function(err, isIPv6)
@@ -84,7 +82,7 @@ function SimpleTCP:connect()
 			self:_connectAndCheck()
 			-- start global scheduler
 			assert(not self.globalUpdateHandler, "SimpleTCP:connect status wrong, need reviewing!")
-			self.globalUpdateHandler = scheduler.scheduleUpdateGlobal(handler(self, self._update))
+			self.globalUpdateHandler = scheduler.scheduleUpdateGlobal(GG.Pack(self, self._update))
 		end)
 	end
 end

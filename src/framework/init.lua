@@ -16,7 +16,8 @@ require(cc.PACKAGE_NAME .. ".functions")
 GG.Console.P("# DEBUG = " .. GG.Env.DEBUG)
 
 GG.Requires(cc.PACKAGE_NAME .. ".device")
-display = require(cc.PACKAGE_NAME .. ".display")
+GG.Requires(cc.PACKAGE_NAME .. ".display")
+
 audio = require(cc.PACKAGE_NAME .. ".audio")
 network = require(cc.PACKAGE_NAME .. ".network")
 crypto = require(cc.PACKAGE_NAME .. ".crypto")

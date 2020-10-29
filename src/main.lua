@@ -170,16 +170,58 @@ local function Class(classname, super)
     return cls
 end
 
+-- 深度拷贝
+local function Clone(object)
+    local lookup_table = {}
+    local function _copy(_object)
+        if type(_object) ~= "table" then
+            return _object
+        elseif lookup_table[_object] then
+            return lookup_table[_object]
+        end
+        local new_table = {}
+        lookup_table[_object] = new_table
+        for key, value in pairs(_object) do
+            new_table[_copy(key)] = _copy(value)
+        end
+        return setmetatable(new_table, getmetatable(_object))
+    end
+    return _copy(object)
+end
+
+-- 利用闭包完成对象打包
+local function Pack(obj, method)
+    return function(...)
+        return method(obj, ...)
+    end
+end
+
 -- 导出框架
+local Framework = {
+    Engine = "Quick4.0.1",
+    Name = "Durian",
+    Version = "0.0.1",
+    Author = "DoooReyn"
+}
+
+if _G.__GG_HINT__ then
+    GG.Framework = Framework
+    GG.Idle = Idle
+    GG.Class = Class
+    GG.Clone = Clone
+    GG.Pack = Pack
+    GG.Exists = Exists
+    GG.Exports = Exports
+    GG.Deletes = Deletes
+    GG.Requires = Requires
+end
+
 Exports({
-    Framework = {
-        Engine = "Quick4.0.1",
-        Name = "Durian",
-        Version = "0.0.1",
-        Author = "DoooReyn"
-    },
+    Framework = Framework,
     Idle = Idle,
     Class = Class,
+    Clone = Clone,
+    Pack = Pack,
     Exists = Exists,
     Exports = Exports,
     Deletes = Deletes,

@@ -75,14 +75,14 @@ if GG.Env.CONFIG_SCREEN_AUTOSCALE and GG.Env.CONFIG_SCREEN_AUTOSCALE ~= "NONE" t
 
     if GG.Env.CONFIG_SCREEN_AUTOSCALE == "EXACT_FIT" then
         scale = 1.0
-        glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH,
-            GG.Env.CONFIG_SCREEN_HEIGHT, cc.ResolutionPolicy.EXACT_FIT)
+        glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH, GG.Env.CONFIG_SCREEN_HEIGHT,
+            cc.ResolutionPolicy.EXACT_FIT)
     elseif GG.Env.CONFIG_SCREEN_AUTOSCALE == "FILL_ALL" then
         GG.Env.CONFIG_SCREEN_WIDTH = w
         GG.Env.CONFIG_SCREEN_HEIGHT = h
         scale = 1.0
-        glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH,
-            GG.Env.CONFIG_SCREEN_HEIGHT, cc.ResolutionPolicy.SHOW_ALL)
+        glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH, GG.Env.CONFIG_SCREEN_HEIGHT,
+            cc.ResolutionPolicy.SHOW_ALL)
     else
         if not scaleX or not scaleY then
             scaleX, scaleY = w / GG.Env.CONFIG_SCREEN_WIDTH, h / GG.Env.CONFIG_SCREEN_HEIGHT
@@ -105,10 +105,10 @@ if GG.Env.CONFIG_SCREEN_AUTOSCALE and GG.Env.CONFIG_SCREEN_AUTOSCALE ~= "NONE" t
         else
             scale = 1.0
             GG.Console.EF(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"",
-                           GG.Env.CONFIG_SCREEN_AUTOSCALE))
+                              GG.Env.CONFIG_SCREEN_AUTOSCALE))
         end
-        glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH,
-            GG.Env.CONFIG_SCREEN_HEIGHT, cc.ResolutionPolicy.NO_BORDER)
+        glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH, GG.Env.CONFIG_SCREEN_HEIGHT,
+            cc.ResolutionPolicy.NO_BORDER)
     end
 else
     GG.Env.CONFIG_SCREEN_WIDTH = w
@@ -650,7 +650,7 @@ end
   })
 ]]--
 function display.newCircle(radius, params)
-    params = checktable(params)
+    params = GG.Checker.Table(params)
 
     local function makeVertexs(radius)
         local segments = params.segments or 32
@@ -782,7 +782,7 @@ function display.newRoundedRect(size, radius, params)
     end
     points[#points + 1] = cc.p(points[1].x, points[1].y)
 
-    params = checktable(params)
+    params = GG.Checker.Table(params)
     local borderWidth = params.borderWidth or 0.5
     local fillColor = params.fillColor or cc.c4f(1, 1, 1, 1)
     local borderColor = params.borderColor or cc.c4f(1, 1, 1, 1)
@@ -850,9 +850,9 @@ end
   })
 ]]--
 function display.newPolygon(points, params, drawNode)
-    params = checktable(params)
-    local scale = checknumber(params.scale or 1.0)
-    local borderWidth = checknumber(params.borderWidth or 0.5)
+    params = GG.Checker.Table(params)
+    local scale = GG.Checker.Number(params.scale or 1.0)
+    local borderWidth = GG.Checker.Number(params.borderWidth or 0.5)
     local fillColor = params.fillColor or cc.c4f(1, 1, 1, 0)
     local borderColor = params.borderColor or cc.c4f(0, 0, 0, 1)
 
@@ -1033,7 +1033,7 @@ function display.addSpriteFrames(plistFilename, image, handler)
             local texture = sharedTextureCache:getTextureForKey(image)
             assert(texture, string.format("The texture %s, %s is unavailable.", plistFilename, image))
             sharedSpriteFrameCache:addSpriteFrames(plistFilename, texture)
-            handler(plistFilename, image)
+            GG.Pack(plistFilename, image)
         end
     end
 
@@ -1238,4 +1238,10 @@ function display.captureScreen(callback, fileName)
     cc.utils:captureScreen(callback, fileName)
 end
 
-return display
+if _G.__GG_HINT__ then
+    GG.Display = display
+end
+
+return {
+    Display = display
+}

@@ -65,6 +65,11 @@ function Checker.Number(v, d)
     return Checker.IsNumber(v) and v or (tonumber(d) or 0)
 end
 
+-- 转换为整型数值
+function Checker.Int(v)
+    return math.round(GG.Checker.Number(v))
+end
+
 -- 是否string
 function Checker.IsString(v)
     return Checker.TypeOf(v, Checker.DataType.String)
@@ -93,6 +98,32 @@ end
 -- 是否userdata
 function Checker.IsUserData(v)
     return type(v) == Checker.DataType.UserData
+end
+
+-- 是否存在字段
+function Checker.IsKeyExists(hashtable, key)
+    local t = type(hashtable)
+    return (t == "table" or t == "userdata") and hashtable[key] ~= nil
+end
+
+-- 检查对象类型是否匹配
+function Checker.KindOf(obj, classname)
+    local t = type(obj)
+    local mt
+    if t == "table" then
+        mt = getmetatable(obj)
+    elseif t == "userdata" then
+        mt = tolua.getpeer(obj)
+    end
+
+    while mt do
+        if mt.__cname == classname then
+            return true
+        end
+        mt = mt.super
+    end
+
+    return false
 end
 
 -- 对参数列表进行或运算检测

@@ -1,5 +1,5 @@
 
-local AppBase = class("AppBase")
+local AppBase = GG.Class("AppBase")
 
 function AppBase:ctor()
     local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
@@ -32,7 +32,7 @@ function AppBase:enterScene(sceneName, transitionType, time, more, ...)
     local scenePackageName = "app.scenes." .. sceneName
     local sceneClass = require(scenePackageName)
     local scene = sceneClass.new(...)
-    display.replaceScene(scene, transitionType, time, more)
+    GG.Display.replaceScene(scene, transitionType, time, more)
 end
 
 function AppBase:createView(viewName, ...)

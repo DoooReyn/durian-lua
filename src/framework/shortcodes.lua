@@ -70,7 +70,7 @@ end
   @return self
 ]]--
 function Node:center()
-    self:setPosition(display.cx, display.cy)
+    self:setPosition(GG.Display.cx, GG.Display.cy)
     return self
 end
 
@@ -309,7 +309,7 @@ end
 local Sprite = c.Sprite
 
 --[[
-  Set sprite's display frame.
+  Set sprite's GG.Display frame.
   @function displayFrame
   @param SpriteFrame frame
   @return self

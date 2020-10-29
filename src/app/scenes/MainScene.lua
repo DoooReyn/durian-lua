@@ -1,14 +1,14 @@
-local MainScene = class("MainScene", function()
-	return display.newScene("MainScene")
+local MainScene = GG.Class("MainScene", function()
+	return GG.Display.newScene("MainScene")
 end)
 
 function MainScene:ctor()
-	display.newSprite("HelloWorld.png")
+	GG.Display.newSprite("HelloWorld.png")
 		:addTo(self)
 		:center()
 
-	display.newTTFLabel({text = "Hello, World", size = 64})
-		:align(display.CENTER, display.cx, display.cy)
+	GG.Display.newTTFLabel({text = "Hello, World", size = 64})
+		:align(GG.Display.CENTER, GG.Display.cx, GG.Display.cy)
 		:addTo(self)
 end
 

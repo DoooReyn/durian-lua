@@ -1,309 +1,13 @@
---[[
-  Common & Basic & Global methods.
-]]
-
---[[
-  Work like C printf().
-  @function printf
-  @param string fmt
-  @param ...
-
-  example:
-  printf("The value = %d", 100)
-]]--
-function printf(fmt, ...)
-    GG.Console.P(string.format(tostring(fmt), ...))
-end
-
---[[
-  Convert value to number, if convert fail, return 0.
-  @function checknumber
-  @param mixed value
-  @param integer base, default is 10
-  @return number
-]]--
-function checknumber(value, base)
-    return tonumber(value, base) or 0
-end
-
---[[
-  Convert value to integer, if convert fail, return 0
-  @function checkint
-  @param mixed value
-  @return integer
-]]--
-function checkint(value)
-    return math.round(checknumber(value))
-end
-
---[[
-  Convert value to boolean, nil and false return false, other return true.
-  @function checkbool
-  @param mixed value
-  @return boolean
-]]--
-function checkbool(value)
-    return (value ~= nil and value ~= false)
-end
-
---[[
-  Convert value to table, if not a table, return a empty table
-  @function checktable
-  @param mixed value
-  @return table
-]]--
-function checktable(value)
-    if type(value) ~= "table" then value = {} end
-    return value
-end
-
---[[
-  Check if key in table or userdata.
-  @function isset
-  @param table hashtable
-  @param mixed key
-  @return boolean
-]]--
-function isset(hashtable, key)
-    local t = type(hashtable)
-    return (t == "table" or t == "userdata") and hashtable[key] ~= nil
-end
-
---[[
-  Deep clone a table
-  @function clone
-  @param table object
-  @return table
-]]--
-function clone(object)
-    local lookup_table = {}
-    local function _copy(object)
-        if type(object) ~= "table" then
-            return object
-        elseif lookup_table[object] then
-            return lookup_table[object]
-        end
-        local new_table = {}
-        lookup_table[object] = new_table
-        for key, value in pairs(object) do
-            new_table[_copy(key)] = _copy(value)
-        end
-        return setmetatable(new_table, getmetatable(object))
-    end
-    return _copy(object)
-end
-
---[[
-  Create a class
-  @function clone
-  @param string classname
-  @param mixed super
-  @return class
-
-  example:
-  -->>>>>>> create a base class <<<<<<--
-  local Shape = class("Shape")
-  function Shape:ctor(shapeName)
-    self.shapeName = shapeName
-    printf("Shape:ctor(%s)", self.shapeName)
-  end
-
-  function Shape:draw()
-    printf("draw %s", self.shapeName)
-  end
-
-  -->>>>>>> create a extend class <<<<<<--
-  local Circle = class("Circle", Shape)
-
-  function Circle:ctor()
-    Circle.super.ctor(self, "circle") -- call super's same name method.
-    self.radius = 100
-  end
-
-  function Circle:setRadius(radius)
-    self.radius = radius
-  end
-
-  -- override super's same name method.
-  function Circle:draw()
-    printf("draw %s, raidus = %0.2f", self.shapeName, self.raidus)
-  end
-
-  -->>>>>>> instantiation <<<<<<--
-  local circle = Circle.new() -- logout: Shape:ctor(circle)
-  circle:setRaidus(200)
-  circle:draw()               -- logout: draw circle, radius = 200.00
-
-  -->>>>>>> extend from C++ object(userdata) <<<<<<--
-  local Toolbar = class("Toolbar", function()
-    return display.newNode() -- return cc.Node's instant
-  end)
-]]--
-function class(classname, super)
-    local superType = type(super)
-    local cls
-
-    if superType ~= "function" and superType ~= "table" then
-        superType = nil
-        super = nil
-    end
-
-    if superType == "function" or (super and super.__ctype == 1) then
-        -- inherited from native C++ Object
-        cls = {}
-
-        if superType == "table" then
-            -- copy fields from super
-            for k,v in pairs(super) do cls[k] = v end
-            cls.__create = super.__create
-            cls.super    = super
-        else
-            cls.__create = super
-            cls.ctor = function() end
-        end
-
-        cls.__cname = classname
-        cls.__ctype = 1
-
-        function cls.new(...)
-            local instance = cls.__create(...)
-            -- copy fields from class to native object
-            for k,v in pairs(cls) do instance[k] = v end
-            instance.class = cls
-            instance:ctor(...)
-            return instance
-        end
-
-    else
-        -- inherited from Lua Object
-        if super then
-            cls = {}
-            setmetatable(cls, {__index = super})
-            cls.super = super
-        else
-            cls = {ctor = function() end}
-        end
-
-        cls.__cname = classname
-        cls.__ctype = 2 -- lua
-        cls.__index = cls
-
-        function cls.new(...)
-            local instance = setmetatable({}, cls)
-            instance.class = cls
-            instance:ctor(...)
-            return instance
-        end
-    end
-
-    return cls
-end
-
---[[
-  Check instant is kind of class.
-  @function iskindof
-  @param mixed obj
-  @param string classname
-  @return boolean
-
-  example:
-  local Animal = class("Animal")
-  local Duck = class("Duck", Animal)
-  GG.Console.P(iskindof(Duck.new(), "Animal"))
-]]--
-function iskindof(obj, classname)
-    local t = type(obj)
-    local mt
-    if t == "table" then
-        mt = getmetatable(obj)
-    elseif t == "userdata" then
-        mt = tolua.getpeer(obj)
-    end
-
-    while mt do
-        if mt.__cname == classname then
-            return true
-        end
-        mt = mt.super
-    end
-
-    return false
-end
-
---[[
-  import work like require, but support relative path.
-  @function import
-  @param string moduleName
-  @param string currentModuleName
-  @return mixed
-
-  example:
-  -->>>>>>> use import at module level <<<<<<--
-  local data = import(".data") -- data.lua is in the same directory of the file.
-
-  -->>>>>>> use import at function level <<<<<<--
-  local CURRENT_MODULE_NAME = ...    -- get module name at module level
-  local function testLoad()
-    local MyClassBase = import(".MyClassBase", CURRENT_MODULE_NAME) -- pass module name
-  end
-]]--
-function import(moduleName, currentModuleName)
-    local currentModuleNameParts
-    local moduleFullName = moduleName
-    local offset = 1
-
-    while true do
-        if string.byte(moduleName, offset) ~= 46 then -- .
-            moduleFullName = string.sub(moduleName, offset)
-            if currentModuleNameParts and #currentModuleNameParts > 0 then
-                moduleFullName = table.concat(currentModuleNameParts, ".") .. "." .. moduleFullName
-            end
-            break
-        end
-        offset = offset + 1
-
-        if not currentModuleNameParts then
-            if not currentModuleName then
-                local n,v = debug.getlocal(3, 1)
-                currentModuleName = v
-            end
-
-            currentModuleNameParts = string.split(currentModuleName, ".")
-        end
-        table.remove(currentModuleNameParts, #currentModuleNameParts)
-    end
-
-    return require(moduleFullName)
-end
-
---[[
-  Auto create a anonymous function to make a callback handler.
-  @function handler
-  @param mixed obj
-  @param function method
-  @return function
-
-  example:
-  -- usually to convert a class' member function to be a handler
-  self:addNodeEventListener(cc.ENTER_FRAME_EVENT, handler(self, self.onEnterFrame))
-]]--
-function handler(obj, method)
-    return function(...)
-        return method(obj, ...)
-    end
-end
-
--->>>>>> math <<<<<<--
-
+-- >>>>>> math <<<<<<--
 --[[
   get a value between min_inclusive and max_inclusive.
   @function math.clamp
 ]]
 function math.clamp(value, min_inclusive, max_inclusive)
-  if min_inclusive > max_inclusive then
-      min_inclusive, max_inclusive = max_inclusive, min_inclusive
-  end
-  return math.max(math.min(max_inclusive, value), min_inclusive)
+    if min_inclusive > max_inclusive then
+        min_inclusive, max_inclusive = max_inclusive, min_inclusive
+    end
+    return math.max(math.min(max_inclusive, value), min_inclusive)
 end
 
 --[[
@@ -333,7 +37,7 @@ end
   @return number
 ]]--
 function math.round(value)
-    value = checknumber(value)
+    value = GG.Checker.Number(value)
     return math.floor(value + 0.5)
 end
 
@@ -341,17 +45,17 @@ end
   @see math.rad()
 ]]--
 function math.angle2radian(angle)
-	return angle*math.pi/180
+    return angle * math.pi / 180
 end
 
 --[[
   @see math.deg()
 ]]--
 function math.radian2angle(radian)
-	return radian/math.pi*180
+    return radian / math.pi * 180
 end
 
--->>>>>> io <<<<<<--
+-- >>>>>> io <<<<<<--
 
 --[[
   Check if path exists.
@@ -410,7 +114,9 @@ function io.writefile(path, content, mode)
     mode = mode or "w+b"
     local file = io.open(path, mode)
     if file then
-        if file:write(content) == nil then return false end
+        if file:write(content) == nil then
+            return false
+        end
         io.close(file)
         return true
     else
@@ -468,7 +174,7 @@ function io.filesize(path)
     return size
 end
 
--->>>>>> table <<<<<<--
+-- >>>>>> table <<<<<<--
 
 --[[
   Get hashtable size.
@@ -478,7 +184,7 @@ end
 ]]--
 function table.nums(t)
     local count = 0
-    for k, v in pairs(t) do
+    for _, _ in pairs(t) do
         count = count + 1
     end
     return count
@@ -492,7 +198,7 @@ end
 ]]--
 function table.keys(hashtable)
     local keys = {}
-    for k, v in pairs(hashtable) do
+    for k, _ in pairs(hashtable) do
         keys[#keys + 1] = k
     end
     return keys
@@ -506,7 +212,7 @@ end
 ]]--
 function table.values(hashtable)
     local values = {}
-    for k, v in pairs(hashtable) do
+    for _, v in pairs(hashtable) do
         values[#values + 1] = v
     end
     return values
@@ -532,15 +238,15 @@ end
   @param integer begin, insert pos
 ]]--
 function table.insertto(dest, src, begin)
-	begin = checkint(begin)
-	if begin <= 0 then
-		begin = #dest + 1
-	end
+    begin = GG.Checker.Int(begin)
+    if begin <= 0 then
+        begin = #dest + 1
+    end
 
-	local len = #src
-	for i = 0, len - 1 do
-		dest[i + begin] = src[i + 1]
-	end
+    local len = #src
+    for i = 0, len - 1 do
+        dest[i + begin] = src[i + 1]
+    end
 end
 
 --[[
@@ -553,9 +259,11 @@ end
 ]]--
 function table.indexof(array, value, begin)
     for i = begin or 1, #array do
-        if array[i] == value then return i end
+        if array[i] == value then
+            return i
+        end
     end
-	return false
+    return false
 end
 
 --[[
@@ -567,7 +275,9 @@ end
 ]]--
 function table.keyof(hashtable, value)
     for k, v in pairs(hashtable) do
-        if v == value then return k end
+        if v == value then
+            return k
+        end
     end
     return nil
 end
@@ -588,7 +298,9 @@ function table.removebyvalue(array, value, removeall)
             c = c + 1
             i = i - 1
             max = max - 1
-            if not removeall then break end
+            if not removeall then
+                break
+            end
         end
         i = i + 1
     end
@@ -614,7 +326,7 @@ end
   @param function fn
 ]]--
 function table.walk(t, fn)
-    for k,v in pairs(t) do
+    for k, v in pairs(t) do
         fn(v, k)
     end
 end
@@ -627,7 +339,9 @@ end
 ]]--
 function table.filter(t, fn)
     for k, v in pairs(t) do
-        if not fn(v, k) then t[k] = nil end
+        if not fn(v, k) then
+            t[k] = nil
+        end
     end
 end
 
@@ -655,7 +369,7 @@ function table.unique(t, bArray)
     return n
 end
 
--->>>>>> string <<<<<<--
+-- >>>>>> string <<<<<<--
 
 local _htmlspecialchars_set = {}
 _htmlspecialchars_set["&"] = "&amp;"
@@ -736,10 +450,14 @@ end
 function string.split(input, delimiter)
     input = tostring(input)
     delimiter = tostring(delimiter)
-    if (delimiter=='') then return false end
-    local pos,arr = 0, {}
+    if (delimiter == '') then
+        return false
+    end
+    local pos, arr = 0, {}
     -- for each divider found
-    for st,sp in function() return string.find(input, delimiter, pos, true) end do
+    for st, sp in function()
+        return string.find(input, delimiter, pos, true)
+    end do
         table.insert(arr, string.sub(input, pos, st - 1))
         pos = sp + 1
     end
@@ -823,9 +541,11 @@ end
   GG.Console.P(string.urldecode("hello%20world")) -- logout: hello world
 ]]--
 function string.urldecode(input)
-    input = string.gsub (input, "+", " ")
-    input = string.gsub (input, "%%(%x%x)", function(h) return string.char(checknumber(h,16)) end)
-    input = string.gsub (input, "\r\n", "\n")
+    input = string.gsub(input, "+", " ")
+    input = string.gsub(input, "%%(%x%x)", function(h)
+        return string.char(tonumber(GG.Checker.Number(h), 16))
+    end)
+    input = string.gsub(input, "\r\n", "\n")
     return input
 end
 
@@ -840,11 +560,11 @@ end
 ]]--
 function string.utf8len(input)
     local left = string.len(input)
-    local cnt  = 0
-    local arr  = {0, 0xc0, 0xe0, 0xf0, 0xf8, 0xfc}
+    local cnt = 0
+    local arr = {0, 0xc0, 0xe0, 0xf0, 0xf8, 0xfc}
     while left > 0 do
         local tmp = string.byte(input, -left)
-        local i   = #arr
+        local i = #arr
         while arr[i] do
             if tmp >= arr[i] then
                 left = left - i
@@ -867,11 +587,13 @@ end
   GG.Console.P(string.formatnumberthousands(1924235)) -- logout: 1,924,235
 ]]--
 function string.formatnumberthousands(num)
-    local formatted = tostring(checknumber(num))
+    local formatted = tostring(GG.Checker.Number(num))
     local k
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-        if k == 0 then break end
+        if k == 0 then
+            break
+        end
     end
     return formatted
 end

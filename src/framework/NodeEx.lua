@@ -20,13 +20,13 @@ c.TOUCH_MODE_ONE_BY_ONE               = cc.TOUCHES_ONE_BY_ONE
 --[[
   Set Node's AnchorPoint and Position.
   @function align
-  @param integer anchorPoint, anchor point TYPE defined in display.
+  @param integer anchorPoint, anchor point TYPE defined in GG.Display.
   @param integer x
   @param integer y
   @return self
 ]]--
 function Node:align(anchorPoint, x, y)
-    self:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
+    self:setAnchorPoint(GG.Display.ANCHOR_POINTS[anchorPoint])
     if x and y then self:setPosition(x, y) end
     return self
 end
