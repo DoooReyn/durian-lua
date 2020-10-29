@@ -1,6 +1,6 @@
 require("cocos.init")
 require("framework.init")
-local GG = _G.GG
+
 local AppBase = require("framework.AppBase")
 local MyApp = GG.Class("MyApp", AppBase)
 

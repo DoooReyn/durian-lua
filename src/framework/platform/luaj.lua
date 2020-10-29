@@ -1,16 +1,19 @@
 --[[--
 Lua Java reflection
 ]]
-
 local luaj = {}
 local callJavaStaticMethod = LuaJavaBridge.callStaticMethod
 
 local function checkArguments(args, sig)
-    if type(args) ~= "table" then args = {} end
-    if sig then return args, sig end
+    if type(args) ~= "table" then
+        args = {}
+    end
+    if sig then
+        return args, sig
+    end
 
     sig = {"("}
-    for i, v in ipairs(args) do
+    for _, v in ipairs(args) do
         local t = type(v)
         if t == "number" then
             sig[#sig + 1] = "F"
@@ -38,11 +41,16 @@ end
         ok is true, call sucess
         ok is false, call fail and errorCode return
 ]]--
-
 function luaj.callStaticMethod(className, methodName, args, sig)
-    local args, sig = checkArguments(args, sig)
+    args, sig = checkArguments(args, sig)
     GG.Console.LF("luaj.callStaticMethod(\"%s\",\n\t\"%s\",\n\targs,\n\t\"%s\"", className, methodName, sig)
     return callJavaStaticMethod(className, methodName, args, sig)
 end
 
-return luaj
+if _G.__GG_HINT__ then
+    GG.LuaJ = luaj
+end
+
+return {
+    LuaJ = luaj
+}

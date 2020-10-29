@@ -61,7 +61,7 @@ end
 -- 挂载全局变量
 local function Exports(globals)
     if type(globals) ~= "table" then
-        Print("`Exports` expects table, but got " .. type(globals))
+        Print(debug.traceback("`Exports` expects table, but got " .. type(globals), 2))
         return
     end
 
@@ -92,7 +92,7 @@ local function Requires(...)
     for _, v in ipairs({...}) do
         local state, globals = pcall(require, v)
         if state then
-            if globals then
+            if type(globals) == "table" then
                 Exports(globals)
             end
         else

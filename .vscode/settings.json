@@ -1,8 +1,21 @@
 {
     "Lua.diagnostics.globals": [
         "cc",
-        "require",
         "tolua",
-        "unpack"
+        "unpack",
+        "mat4_getInversed",
+        "mat4_transformVector",
+        "mat4_multiply",
+        "mat4_decompose",
+        "mat4_translate",
+        "mat4_createRotationZ",
+        "mat4_setIdentity",
+        "mat4_createTranslation",
+        "mat4_createRotation",
+        "fairygui",
+        "require",
+        "ccui",
+        "Rapid2D_CAudio",
+        "LuaJavaBridge"
     ]
 }

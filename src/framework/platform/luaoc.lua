@@ -38,4 +38,10 @@ function luaoc.callStaticMethod(className, methodName, args)
     return ok, ret
 end
 
-return luaoc
+if _G.__GG_HINT__ then
+    GG.LuaOc = luaoc
+end
+
+return {
+    LuaOc = luaoc
+}

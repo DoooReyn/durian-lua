@@ -1,21 +1,25 @@
-
 local AppBase = GG.Class("AppBase")
 
 function AppBase:ctor()
     local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
     local customListenerBg = cc.EventListenerCustom:create("APP_ENTER_BACKGROUND_EVENT", function()
-		Rapid2D_CAudio.pause() -- stop OpenAL backend thread
-		self:onEnterBackground()
-	end)
+        Rapid2D_CAudio.pause() -- stop OpenAL backend thread
+        self:onEnterBackground()
+    end)
     eventDispatcher:addEventListenerWithFixedPriority(customListenerBg, 1)
     local customListenerFg = cc.EventListenerCustom:create("APP_ENTER_FOREGROUND_EVENT", function()
-		Rapid2D_CAudio.resume() -- start OpenAL backend thread
-		self:onEnterForeground()
-	end)
+        Rapid2D_CAudio.resume() -- start OpenAL backend thread
+        self:onEnterForeground()
+    end)
     eventDispatcher:addEventListenerWithFixedPriority(customListenerFg, 1)
 
     -- set global app
-    app = self
+    GG.Exports({
+        App = self
+    })
+    if _G.__GG_HINT__ then
+        GG.App = self
+    end
 end
 
 function AppBase:run()
