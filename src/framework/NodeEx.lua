@@ -323,7 +323,7 @@ end
 ]]--
 function Node:setTouchMode(mode)
 	if mode ~= c.TOUCH_MODE_ALL_AT_ONCE and mode ~= c.TOUCHES_ONE_BY_ONE then
-		print("== wrong mode", mode)
+		GG.Console.P("== wrong mode", mode)
 		return
 	end
 	self._luaTouchMode = mode

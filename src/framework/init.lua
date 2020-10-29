@@ -1,30 +1,21 @@
-print("===========================================================")
-print("              LOAD Cocos2d-Lua-Community FRAMEWORK")
-print("===========================================================")
+GG.Console.P("===========================================================")
+GG.Console.P("              LOAD Cocos2d-Lua-Community FRAMEWORK")
+GG.Console.P("===========================================================")
 
-if type(GG.Env.DEBUG) ~= "number" then
-    GG.Env.DEBUG = 0
-end
-if type(GG.Env.DEBUG_FPS) ~= "boolean" then
-    GG.Env.DEBUG_FPS = false
-end
-if type(GG.Env.DEBUG_MEM) ~= "boolean" then
-    GG.Env.DEBUG_MEM = false
-end
+GG.Env.DEBUG = GG.Checker.Number(GG.Env.DEBUG, 0)
+GG.Env.DEBUG_FPS = GG.Checker.Bool(GG.Env.DEBUG_FPS, false)
+GG.Env.DEBUG_MEM = GG.Checker.Bool(GG.Env.DEBUG_MEM, false)
 
 local CURRENT_MODULE_NAME = ...
 
 cc = cc or {}
 cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
 
-require(cc.PACKAGE_NAME .. ".debug")
 require(cc.PACKAGE_NAME .. ".functions")
 
-printInfo("")
-printInfo("# DEBUG                        = " .. GG.Env.DEBUG)
-printInfo("#")
+GG.Console.P("# DEBUG = " .. GG.Env.DEBUG)
 
-device = require(cc.PACKAGE_NAME .. ".device")
+GG.Requires(cc.PACKAGE_NAME .. ".device")
 display = require(cc.PACKAGE_NAME .. ".display")
 audio = require(cc.PACKAGE_NAME .. ".audio")
 network = require(cc.PACKAGE_NAME .. ".network")
@@ -34,11 +25,11 @@ require(cc.PACKAGE_NAME .. ".shortcodes")
 require(cc.PACKAGE_NAME .. ".NodeEx")
 require(cc.PACKAGE_NAME .. ".WidgetEx")
 
-if device.platform == "android" then
+if GG.Device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")
-elseif device.platform == "ios" then
+elseif GG.Device.platform == "ios" then
     require(cc.PACKAGE_NAME .. ".platform.ios")
-elseif device.platform == "mac" then
+elseif GG.Device.platform == "mac" then
     require(cc.PACKAGE_NAME .. ".platform.mac")
 end
 
@@ -53,9 +44,9 @@ end
 
 if GG.Env.DEBUG_MEM then
     local function showMemoryUsage()
-        printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
-        printInfo(sharedTextureCache:getCachedTextureInfo())
-        printInfo("---------------------------------------------------")
+        GG.Console.LF(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
+        GG.Console.LF(sharedTextureCache:getCachedTextureInfo())
+        GG.Console.LF("---------------------------------------------------")
     end
     sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, GG.Env.DEBUG_MEM_INTERVAL or 10.0, false)
 end

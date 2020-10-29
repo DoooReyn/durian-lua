@@ -1,6 +1,7 @@
+-- 环境变量
 local Env = {
     -- 名称
-    __name = "Env",
+    __name = "GG.Env",
 
     -- 版本
     __version = "0.0.1",
@@ -38,4 +39,10 @@ function Env.IsDebug()
     return not Env.IsRelease()
 end
 
-return Env
+if _G.__GG_HINT__ then
+    GG.Env = Env
+end
+
+return {
+    Env = Env
+}

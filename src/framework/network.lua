@@ -32,7 +32,7 @@ end
 ]]--
 function network.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
-        printError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
+        GG.Console.EF("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
         return false
     end
     return cc.Network:isHostNameReachable(hostname)
@@ -62,22 +62,22 @@ end
   local function onRequestCallback(event)
     local request = event.request
     if event.name == "completed" then
-      print(request:getResponseHeadersString())
+      GG.Console.P(request:getResponseHeadersString())
       local code = request:getResponseStatusCode()
       if code ~= 200 then
-        print(code) -- get error
+        GG.Console.P(code) -- get error
         return
       end
       
       -- get success
-      print("response length" .. request:getResponseDataLength())
+      GG.Console.P("response length" .. request:getResponseDataLength())
       local response = request:getResponseString()
-      print(response)
+      GG.Console.P(response)
     elseif event.name == "progress" then
-      print("progress" .. event.dltotal)
+      GG.Console.P("progress" .. event.dltotal)
     else
-      print(event.name) -- get error
-      print(request:getErrorCode(), request:getErrorMessage())
+      GG.Console.P(event.name) -- get error
+      GG.Console.P(request:getErrorCode(), request:getErrorMessage())
       return
     end
   end
@@ -113,15 +113,15 @@ end
     if event.name == "completed" then
       local code = request:getResponseStatusCode()
       if code == 200 or code == 206 then -- 206 resume from break-point
-        print("download success")
+        GG.Console.P("download success")
         return
       end
-      print("HTTP unkonw response code:", code) -- get error
+      GG.Console.P("HTTP unkonw response code:", code) -- get error
     elseif event.name == "progress" then
-      print("progress" .. event.dltotal)
+      GG.Console.P("progress" .. event.dltotal)
     else
-      print(event.name) -- get error
-      print(request:getErrorCode(), request:getErrorMessage())
+      GG.Console.P(event.name) -- get error
+      GG.Console.P(request:getErrorCode(), request:getErrorMessage())
     end
   end
 
@@ -158,7 +158,7 @@ end
   "http://127.0.0.1/upload.php",
   {
     fileFieldName = "filepath",
-	filePath = device.writablePath.."screen.jpg",
+	filePath = GG.Device.writablePath.."screen.jpg",
 	contentType = "Image/jpeg",
 	extra = {
 	  {"act", "upload"},

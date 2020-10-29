@@ -20,7 +20,7 @@ local table = table
 local assert = assert
 local ipairs = ipairs
 local error = error
-local print = print
+local print = GG.Console.P
 
 local pb = require "pb"
 local encoder = require "encoder"

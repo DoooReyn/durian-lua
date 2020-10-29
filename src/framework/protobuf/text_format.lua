@@ -16,7 +16,7 @@
 --
 local string = string
 local math = math
-local print = print
+local print = GG.Console.P
 local getmetatable = getmetatable
 local table = table
 local ipairs = ipairs
@@ -33,7 +33,7 @@ function format(buffer)
         for j = i, math.min( i + 16 - 1, len ) do	
             text = string.format( "%s  %02x", text, string.byte( buffer, j ) )			
         end			
-        print( text )	
+        GG.Console.P( text )	
     end
 end
 

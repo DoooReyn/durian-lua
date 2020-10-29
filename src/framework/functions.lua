@@ -12,7 +12,7 @@
   printf("The value = %d", 100)
 ]]--
 function printf(fmt, ...)
-    print(string.format(tostring(fmt), ...))
+    GG.Console.P(string.format(tostring(fmt), ...))
 end
 
 --[[
@@ -209,7 +209,7 @@ end
   example:
   local Animal = class("Animal")
   local Duck = class("Duck", Animal)
-  print(iskindof(Duck.new(), "Animal"))
+  GG.Console.P(iskindof(Duck.new(), "Animal"))
 ]]--
 function iskindof(obj, classname)
     local t = type(obj)
@@ -362,7 +362,7 @@ end
   example:
   local path = cc.FileUtils:getInstance():fullPathForFilename("data.txt")
   if io.exists(path) then
-    print("exists")
+    GG.Console.P("exists")
   end
 ]]--
 function io.exists(path)
@@ -403,7 +403,7 @@ end
   @return boolean
 
   example:
-  local path = device.writablePath .. "data.txt"
+  local path = GG.Device.writablePath .. "data.txt"
   io.writefile(path, "this is a buffer")
 ]]--
 function io.writefile(path, content, mode)
@@ -671,7 +671,7 @@ _htmlspecialchars_set[">"] = "&gt;"
   @return string
 
   example:
-  print(string.htmlspecialchars("<ABC>")) -- logout: &lt;ABC&gt;
+  GG.Console.P(string.htmlspecialchars("<ABC>")) -- logout: &lt;ABC&gt;
 ]]--
 function string.htmlspecialchars(input)
     for k, v in pairs(_htmlspecialchars_set) do
@@ -687,7 +687,7 @@ end
   @return string
 
   example:
-  print(string.restorehtmlspecialchars("&lt;ABC&gt;")) -- logout: <ABC>
+  GG.Console.P(string.restorehtmlspecialchars("&lt;ABC&gt;")) -- logout: <ABC>
 ]]--
 function string.restorehtmlspecialchars(input)
     for k, v in pairs(_htmlspecialchars_set) do
@@ -703,7 +703,7 @@ end
   @return string
 
   example:
-  print(string.nl2br("Hello\nWorld")) -- logout: Hello<br />World
+  GG.Console.P(string.nl2br("Hello\nWorld")) -- logout: Hello<br />World
 ]]--
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
@@ -716,7 +716,7 @@ end
   @return string
 
   example:
-  print(string.text2html("<Hello>\nWorld")) -- logout: &lt;Hello&gt;<br />World
+  GG.Console.P(string.text2html("<Hello>\nWorld")) -- logout: &lt;Hello&gt;<br />World
 ]]--
 function string.text2html(input)
     input = string.gsub(input, "\t", "    ")
@@ -785,7 +785,7 @@ end
   @return string
 
   example:
-  print(string.ucfirst("hello")) -- logout: Hello
+  GG.Console.P(string.ucfirst("hello")) -- logout: Hello
 ]]--
 function string.ucfirst(input)
     return string.upper(string.sub(input, 1, 1)) .. string.sub(input, 2)
@@ -802,7 +802,7 @@ end
   @return string
 
   example:
-  print(string.urlencode("hello world")) -- logout: hello%20world
+  GG.Console.P(string.urlencode("hello world")) -- logout: hello%20world
 ]]--
 function string.urlencode(input)
     -- convert line endings
@@ -820,7 +820,7 @@ end
   @return string
 
   example:
-  print(string.urldecode("hello%20world")) -- logout: hello world
+  GG.Console.P(string.urldecode("hello%20world")) -- logout: hello world
 ]]--
 function string.urldecode(input)
     input = string.gsub (input, "+", " ")
@@ -836,7 +836,7 @@ end
   @return integer
 
   example:
-  print(string.utf8len("你好World")) -- logout: 7
+  GG.Console.P(string.utf8len("你好World")) -- logout: 7
 ]]--
 function string.utf8len(input)
     local left = string.len(input)
@@ -864,7 +864,7 @@ end
   @return string
 
   example:
-  print(string.formatnumberthousands(1924235)) -- logout: 1,924,235
+  GG.Console.P(string.formatnumberthousands(1924235)) -- logout: 1,924,235
 ]]--
 function string.formatnumberthousands(num)
     local formatted = tostring(checknumber(num))

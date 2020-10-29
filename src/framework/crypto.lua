@@ -100,12 +100,12 @@ end
 ]]--
 function crypto.md5file(path)
     if not path then
-        printError("crypto.md5file() - invalid filename")
+        GG.Console.EF("crypto.md5file() - invalid filename")
         return nil
     end
     path = tostring(path)
     if GG.Env.DEBUG > 1 then
-        printInfo("crypto.md5file() - filename: %s", path)
+        GG.Console.LF("crypto.md5file() - filename: %s", path)
     end
     return cc.Crypto:MD5File(path)
 end

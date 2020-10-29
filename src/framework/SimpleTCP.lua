@@ -16,7 +16,7 @@ local SimpleTCP = class("SimpleTCP")
 
 local string = string
 local pairs = pairs
-local print = print
+local print = GG.Console.P
 local assert = assert
 
 --------- class var and method --------------
@@ -41,8 +41,8 @@ end
 
 -------- instant var and public method -------------
 function SimpleTCP:ctor(host, port, callback)
-	if not host then print("Worning SimpleTCP:ctor() host is nil") end
-	if not port then print("Worning SimpleTCP:ctor() port is nil") end
+	if not host then GG.Console.P("Worning SimpleTCP:ctor() host is nil") end
+	if not port then GG.Console.P("Worning SimpleTCP:ctor() port is nil") end
 
 	self.host = host
 	self.port = port
@@ -55,7 +55,7 @@ start connect by user
 ]]
 function SimpleTCP:connect()
 	if (self.stat == SimpleTCP.STAT_CONNECTING or self.stat == SimpleTCP.STAT_CONNECTED) then
-		print("Error: SimpleTCP:connect() call at wrong stat:", self.stat)
+		GG.Console.P("Error: SimpleTCP:connect() call at wrong stat:", self.stat)
 		return
 	end
 
@@ -94,7 +94,7 @@ send data to server by user
 ]]
 function SimpleTCP:send(data)
 	if self.stat ~= SimpleTCP.STAT_CONNECTED then
-		print("Error: SimpleTCP is not connected.")
+		GG.Console.P("Error: SimpleTCP is not connected.")
 		return
 	end
 	self.tcp:send(data)
@@ -105,7 +105,7 @@ close by user, but SimpleTCP.EVENT_CLOSED will waiting for server's response
 ]]
 function SimpleTCP:close()
 	if self.stat == SimpleTCP.STAT_CONNECTING then
-		print("Error: SimpleTCP is connecting, wait it end then you can call close()")
+		GG.Console.P("Error: SimpleTCP is connecting, wait it end then you can call close()")
 		return
 	end
 

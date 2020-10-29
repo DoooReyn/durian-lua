@@ -23,7 +23,7 @@ end
 
 function AppBase:exit()
     cc.Director:getInstance():endToLua()
-    if device.platform == "windows" or device.platform == "mac" then
+    if GG.Device.platform == "windows" or GG.Device.platform == "mac" then
         os.exit()
     end
 end

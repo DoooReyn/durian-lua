@@ -454,14 +454,14 @@ function sparser.dump(str)
 		tmp = tmp .. string.format("%02X ", string.byte(str,i))
 		if i % 8 == 0 then
 			if i % 16 == 0 then
-				print(tmp)
+				GG.Console.P(tmp)
 				tmp = ""
 			else
 				tmp = tmp .. "- "
 			end
 		end
 	end
-	print(tmp)
+	GG.Console.P(tmp)
 end
 
 function sparser.parse(text, name)

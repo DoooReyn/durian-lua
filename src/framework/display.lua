@@ -39,7 +39,7 @@ local sharedTextureCache = cc.Director:getInstance():getTextureCache()
 local sharedSpriteFrameCache = cc.SpriteFrameCache:getInstance()
 local sharedAnimationCache = cc.AnimationCache:getInstance()
 
--- check device screen size
+-- check GG.Device screen size
 local glview = sharedDirector:getOpenGLView()
 assert(glview ~= nil, "Error: GLView not inited!")
 local size = glview:getFrameSize()
@@ -70,7 +70,7 @@ local scale, scaleX, scaleY = 1.0, 1.0, 1.0
 
 if GG.Env.CONFIG_SCREEN_AUTOSCALE and GG.Env.CONFIG_SCREEN_AUTOSCALE ~= "NONE" then
     if type(GG.Env.CONFIG_SCREEN_AUTOSCALE_CALLBACK) == "function" then
-        scaleX, scaleY = GG.Env.CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, device.model)
+        scaleX, scaleY = GG.Env.CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, GG.Device.model)
     end
 
     if GG.Env.CONFIG_SCREEN_AUTOSCALE == "EXACT_FIT" then
@@ -104,7 +104,7 @@ if GG.Env.CONFIG_SCREEN_AUTOSCALE and GG.Env.CONFIG_SCREEN_AUTOSCALE ~= "NONE" t
             end
         else
             scale = 1.0
-            printError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"",
+            GG.Console.EF(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"",
                            GG.Env.CONFIG_SCREEN_AUTOSCALE))
         end
         glview:setDesignResolutionSize(GG.Env.CONFIG_SCREEN_WIDTH,
@@ -138,25 +138,25 @@ display.bottom = 0
 display.widthInPixels = display.sizeInPixels.width
 display.heightInPixels = display.sizeInPixels.height
 
-printInfo(string.format("# CONFIG_SCREEN_AUTOSCALE      = %s", GG.Env.CONFIG_SCREEN_AUTOSCALE))
-printInfo(string.format("# CONFIG_SCREEN_WIDTH          = %0.2f", GG.Env.CONFIG_SCREEN_WIDTH))
-printInfo(string.format("# CONFIG_SCREEN_HEIGHT         = %0.2f", GG.Env.CONFIG_SCREEN_HEIGHT))
-printInfo(string.format("# display.widthInPixels        = %0.2f", display.widthInPixels))
-printInfo(string.format("# display.heightInPixels       = %0.2f", display.heightInPixels))
-printInfo(string.format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
-printInfo(string.format("# display.width                = %0.2f", display.width))
-printInfo(string.format("# display.height               = %0.2f", display.height))
-printInfo(string.format("# display.cx                   = %0.2f", display.cx))
-printInfo(string.format("# display.cy                   = %0.2f", display.cy))
-printInfo(string.format("# display.left                 = %0.2f", display.left))
-printInfo(string.format("# display.right                = %0.2f", display.right))
-printInfo(string.format("# display.top                  = %0.2f", display.top))
-printInfo(string.format("# display.bottom               = %0.2f", display.bottom))
-printInfo(string.format("# display.c_left               = %0.2f", display.c_left))
-printInfo(string.format("# display.c_right              = %0.2f", display.c_right))
-printInfo(string.format("# display.c_top                = %0.2f", display.c_top))
-printInfo(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
-printInfo("#")
+GG.Console.LF(string.format("# CONFIG_SCREEN_AUTOSCALE      = %s", GG.Env.CONFIG_SCREEN_AUTOSCALE))
+GG.Console.LF(string.format("# CONFIG_SCREEN_WIDTH          = %0.2f", GG.Env.CONFIG_SCREEN_WIDTH))
+GG.Console.LF(string.format("# CONFIG_SCREEN_HEIGHT         = %0.2f", GG.Env.CONFIG_SCREEN_HEIGHT))
+GG.Console.LF(string.format("# display.widthInPixels        = %0.2f", display.widthInPixels))
+GG.Console.LF(string.format("# display.heightInPixels       = %0.2f", display.heightInPixels))
+GG.Console.LF(string.format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
+GG.Console.LF(string.format("# display.width                = %0.2f", display.width))
+GG.Console.LF(string.format("# display.height               = %0.2f", display.height))
+GG.Console.LF(string.format("# display.cx                   = %0.2f", display.cx))
+GG.Console.LF(string.format("# display.cy                   = %0.2f", display.cy))
+GG.Console.LF(string.format("# display.left                 = %0.2f", display.left))
+GG.Console.LF(string.format("# display.right                = %0.2f", display.right))
+GG.Console.LF(string.format("# display.top                  = %0.2f", display.top))
+GG.Console.LF(string.format("# display.bottom               = %0.2f", display.bottom))
+GG.Console.LF(string.format("# display.c_left               = %0.2f", display.c_left))
+GG.Console.LF(string.format("# display.c_right              = %0.2f", display.c_right))
+GG.Console.LF(string.format("# display.c_top                = %0.2f", display.c_top))
+GG.Console.LF(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
+GG.Console.LF("#")
 
 display.COLOR_WHITE = cc.c3b(255, 255, 255)
 display.COLOR_YELLOW = cc.c3b(255, 255, 0)
@@ -335,7 +335,7 @@ function display.wrapSceneWithTransition(scene, transitionType, time, more)
             scene = cls:create(time, scene)
         end
     else
-        printError("display.wrapSceneWithTransition() - invalid transitionType %s", tostring(transitionType))
+        GG.Console.EF("display.wrapSceneWithTransition() - invalid transitionType %s", tostring(transitionType))
     end
     return scene
 end
@@ -501,7 +501,7 @@ function display.newSprite(filename, x, y, params)
     elseif t == "cc.Texture2D" then
         sprite = spriteClass:createWithTexture(filename)
     else
-        printError("display.newSprite() - invalid filename value type")
+        GG.Console.EF("display.newSprite() - invalid filename value type")
         sprite = spriteClass:create()
     end
 
@@ -513,7 +513,7 @@ function display.newSprite(filename, x, y, params)
             sprite:setContentSize(size)
         end
     else
-        printError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
+        GG.Console.EF("display.newSprite() - create sprite failure, filename %s", tostring(filename))
         sprite = spriteClass:create()
     end
 
@@ -557,7 +557,7 @@ function display.newTilesSprite(filename, rect)
     end
     local sprite = cc.Sprite:create(filename, rect)
     if not sprite then
-        printError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
+        GG.Console.EF("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
     end
 
@@ -1106,7 +1106,7 @@ end
 function display.newSpriteFrame(frameName)
     local frame = sharedSpriteFrameCache:getSpriteFrame(frameName)
     if not frame then
-        printError("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
+        GG.Console.EF("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
     end
     return frame
 end
@@ -1136,7 +1136,7 @@ function display.newFrames(pattern, begin, length, isReversed)
         local frameName = string.format(pattern, index)
         local frame = sharedSpriteFrameCache:getSpriteFrame(frameName)
         if not frame then
-            printError("display.newFrames() - invalid frame, name %s", tostring(frameName))
+            GG.Console.EF("display.newFrames() - invalid frame, name %s", tostring(frameName))
             return
         end
 
@@ -1231,7 +1231,7 @@ end
 
   example:
   display.captureScreen(function(bSuc, filePath)
-    print(bSuc, filePath)
+    GG.Console.P(bSuc, filePath)
   end, "screen.png")
 ]]--
 function display.captureScreen(callback, fileName)

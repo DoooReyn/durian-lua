@@ -22,7 +22,7 @@ audio._scheduler = nil -- global schedule hander
 -- pos 1 is for BGM
 audio._sources[1] = Rapid2D_CAudio.newSource()
 if not (audio._sources[1]) then
-	print("Error: init BGM source fail, check if have OpenAL init error above!")
+	GG.Console.P("Error: init BGM source fail, check if have OpenAL init error above!")
 	-- fake function, disable audio output when init failed
 	audio.loadFile = function(path, callback)
 		callback(path, true)
@@ -126,7 +126,7 @@ end
 function audio.playBGM(path, isLoop)
 	local buffer = audio._buffers[path]
 	if not buffer then
-		print(path .. " have not loaded!!")
+		GG.Console.P(path .. " have not loaded!!")
 		return
 	end
 
@@ -165,7 +165,7 @@ end
 function audio.playEffect(path, isLoop)
 	local buffer = audio._buffers[path]
 	if not buffer then
-		print(path .. " have not loaded!!")
+		GG.Console.P(path .. " have not loaded!!")
 		return
 	end
 	

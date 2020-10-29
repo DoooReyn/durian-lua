@@ -13,13 +13,13 @@ json.null = cjson.null
   @return string
 
   example:
-  print(json.encode({[3]=2,[5]=3})) -- logout: [null,null,2,null,3]
+  GG.Console.P(json.encode({[3]=2,[5]=3})) -- logout: [null,null,2,null,3]
 ]]--
 function json.encode(var)
     local status, result = pcall(cjson.encode, var)
     if status then return result end
     if GG.Env.DEBUG > 1 then
-        printError("json.encode() - encoding failed: %s", tostring(result))
+        GG.Console.EF("json.encode() - encoding failed: %s", tostring(result))
     end
 end
 
@@ -40,7 +40,7 @@ function json.decode(text)
     local status, result = pcall(cjson.decode, text)
     if status then return result end
     if GG.Env.DEBUG > 1 then
-        printError("json.decode() - decoding failed: %s", tostring(result))
+        GG.Console.EF("json.decode() - decoding failed: %s", tostring(result))
     end
 end
 

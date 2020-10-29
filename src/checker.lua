@@ -12,7 +12,7 @@ Checker.DataType = {
     String = "string",
     Table = "table",
     UserData = "userdata",
-    Thread = "thread",
+    Thread = "thread"
 }
 
 -- 获取值类型
@@ -119,4 +119,10 @@ function Checker.And(v, ...)
     return result
 end
 
-return Checker
+if _G.__GG_HINT__ then
+    GG.Checker = Checker
+end
+
+return {
+    Checker = Checker
+}

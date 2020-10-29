@@ -1,41 +1,5 @@
 cc = cc or {}
 
-local GG = _G.GG
-
-local vec2_keys = {"x", "y"}
-local v2 = setmetatable({
-    x = 0,
-    y = 0
-}, {
-    __index = function(self, k)
-        if GG.Checker.Or(k, 0, 1) then
-            return self[vec2_keys[k]]
-        else
-            return self[k]
-        end
-    end,
-    __newindex = function(self, k, v)
-        if GG.Checker.Or(k, "x", "y", 0, 1) then
-            self[k] = v
-        end
-    end
-})
-
-function GG.v2(x, y)
-    x = GG.Checker.Number(x, 0)
-    y = GG.Checker.Number(y, 0)
-    return {
-        x = x,
-        y = y,
-        [0] = x,
-        [1] = y
-    }
-end
-
-GG.Vec2 = {
-    Zero = GG.v2(0, 0)
-}
-
 -- Point
 function cc.p(_x, _y)
     if nil == _y then
@@ -745,5 +709,3 @@ end
 function cc.mat4.createRotation(...)
     return mat4_createRotation(...)
 end
-
-GG.Checker = Checker

@@ -71,27 +71,34 @@ if device.platform == "windows" then
     device.pathSeparator = ";"
 end
 
-printInfo("# device.platform              = " .. device.platform)
-printInfo("# device.model                 = " .. device.model)
-printInfo("# device.language              = " .. device.language)
-printInfo("# device.writablePath          = " .. device.writablePath)
-printInfo("# device.directorySeparator    = " .. device.directorySeparator)
-printInfo("# device.pathSeparator         = " .. device.pathSeparator)
-printInfo("#")
+GG.Console.P("#")
+GG.Console.P("# device.platform              = " .. device.platform)
+GG.Console.P("# device.model                 = " .. device.model)
+GG.Console.P("# device.language              = " .. device.language)
+GG.Console.P("# device.writablePath          = " .. device.writablePath)
+GG.Console.P("# device.directorySeparator    = " .. device.directorySeparator)
+GG.Console.P("# device.pathSeparator         = " .. device.pathSeparator)
+GG.Console.P("#")
 
 function device.getOpenUDID()
     local ret = cc.Device:getOpenUDID()
     if GG.Env.DEBUG > 1 then
-        printInfo("device.getOpenUDID() - Open UDID: %s", tostring(ret))
+        GG.Console.LF("device.getOpenUDID() - Open UDID: %s", tostring(ret))
     end
     return ret
 end
 
 function device.openURL(url)
     if GG.Env.DEBUG > 1 then
-        printInfo("device.openURL() - url: %s", tostring(url))
+        GG.Console.LF("device.openURL() - url: %s", tostring(url))
     end
     sharedApplication:openURL(url)
 end
 
-return device
+if _G.__GG_HINT__ then
+    GG.Device = device
+end
+
+return {
+    Device = device
+}
