@@ -1,6 +1,6 @@
 --[[
   network status and HTTP request
-]]--
+]] --
 
 local network = {}
 
@@ -86,7 +86,9 @@ end
   request:start()
 ]]--
 function network.createHTTPRequest(callback, url, method)
-    if not method then method = "GET" end
+    if not method then
+        method = "GET"
+    end
     if string.upper(tostring(method)) == "GET" then
         method = cc.kCCHTTPRequestMethodGET
     elseif string.upper(tostring(method)) == "PUT" then
@@ -167,29 +169,31 @@ end
   })
 ]]--
 function network.uploadFile(callback, url, datas)
-	assert(datas or datas.fileFieldName or datas.filePath, "Need file datas!")
-	local request = network.createHTTPRequest(callback, url, "POST")
-	local fileFieldName = datas.fileFieldName
-	local filePath = datas.filePath
-	local contentType = datas.contentType
-	if contentType then
-		request:addFormFile(fileFieldName, filePath, contentType)
-	else
-		request:addFormFile(fileFieldName, filePath)
-	end
-	if datas.extra then
-		for i in ipairs(datas.extra) do
-			local data = datas.extra[i]
-			request:addFormContents(data[1], data[2])
-		end
-	end
-	request:start()
-	return request
+    assert(datas or datas.fileFieldName or datas.filePath, "Need file datas!")
+    local request = network.createHTTPRequest(callback, url, "POST")
+    local fileFieldName = datas.fileFieldName
+    local filePath = datas.filePath
+    local contentType = datas.contentType
+    if contentType then
+        request:addFormFile(fileFieldName, filePath, contentType)
+    else
+        request:addFormFile(fileFieldName, filePath)
+    end
+    if datas.extra then
+        for i in ipairs(datas.extra) do
+            local data = datas.extra[i]
+            request:addFormContents(data[1], data[2])
+        end
+    end
+    request:start()
+    return request
 end
 
 local function parseTrueFalse(t)
     t = string.lower(tostring(t))
-    if t == "yes" or t == "true" then return true end
+    if t == "yes" or t == "true" then
+        return true
+    end
     return false
 end
 
@@ -242,7 +246,7 @@ function network.parseCookie(cookieString)
                 secure = parseTrueFalse(parts[4]),
                 expire = GG.Checker.Int(parts[5]),
                 name = parts[6],
-                value = string.urldecode(parts[7]),
+                value = string.urldecode(parts[7])
             }
 
             cookie[c.name] = c
@@ -252,4 +256,10 @@ function network.parseCookie(cookieString)
     return cookie
 end
 
-return network
+if _G.__GG_HINT__ then
+    GG.Network = network
+end
+
+return {
+    Network = network
+}

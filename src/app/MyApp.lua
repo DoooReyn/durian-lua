@@ -19,7 +19,6 @@ function MyApp:run()
     GG.Console.P("tolua.type: ", GG.Checker.Type(cc.FileUtils:getInstance()))
     GG.Console.P("tolua.type: ", GG.Checker.Type(coroutine.create(function()
     end)))
-    GG.Checker[0] = 1
 end
 
 return MyApp

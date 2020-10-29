@@ -52,6 +52,11 @@ function Console.P(...)
     print(...)
 end
 
+-- 打印格式化输出
+function Console.PF(...)
+    print(Format(...))
+end
+
 -- 输出标记为group的信息
 function Console.G(group, ...)
     local id = NextID()

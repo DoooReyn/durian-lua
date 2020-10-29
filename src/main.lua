@@ -92,7 +92,9 @@ local function Requires(...)
     for _, v in ipairs({...}) do
         local state, globals = pcall(require, v)
         if state then
-            Exports(globals)
+            if globals then
+                Exports(globals)
+            end
         else
             PrintEF("`Requires` path [%s] not exists", v)
         end

@@ -1,6 +1,6 @@
 --[[
   JSON encode and decode
-]]--
+]] --
 
 local json = {}
 local cjson = require("cjson")
@@ -17,7 +17,9 @@ json.null = cjson.null
 ]]--
 function json.encode(var)
     local status, result = pcall(cjson.encode, var)
-    if status then return result end
+    if status then
+        return result
+    end
     if GG.Env.DEBUG > 1 then
         GG.Console.EF("json.encode() - encoding failed: %s", tostring(result))
     end
@@ -38,10 +40,18 @@ end
 ]]--
 function json.decode(text)
     local status, result = pcall(cjson.decode, text)
-    if status then return result end
+    if status then
+        return result
+    end
     if GG.Env.DEBUG > 1 then
         GG.Console.EF("json.decode() - decoding failed: %s", tostring(result))
     end
 end
 
-return json
+if _G.__GG_HINT__ then
+    GG.Json = json
+end
+
+return {
+    Json = json
+}

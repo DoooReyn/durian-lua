@@ -11,20 +11,17 @@ local CURRENT_MODULE_NAME = ...
 cc = cc or {}
 cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
 
-require(cc.PACKAGE_NAME .. ".functions")
-
 GG.Console.P("# DEBUG = " .. GG.Env.DEBUG)
-
+GG.Requires(cc.PACKAGE_NAME .. ".functions")
 GG.Requires(cc.PACKAGE_NAME .. ".device")
 GG.Requires(cc.PACKAGE_NAME .. ".display")
-
-audio = require(cc.PACKAGE_NAME .. ".audio")
-network = require(cc.PACKAGE_NAME .. ".network")
-crypto = require(cc.PACKAGE_NAME .. ".crypto")
-json = require(cc.PACKAGE_NAME .. ".json")
-require(cc.PACKAGE_NAME .. ".shortcodes")
-require(cc.PACKAGE_NAME .. ".NodeEx")
-require(cc.PACKAGE_NAME .. ".WidgetEx")
+GG.Requires(cc.PACKAGE_NAME .. ".audio")
+GG.Requires(cc.PACKAGE_NAME .. ".network")
+GG.Requires(cc.PACKAGE_NAME .. ".crypto")
+GG.Requires(cc.PACKAGE_NAME .. ".json")
+GG.Requires(cc.PACKAGE_NAME .. ".shortcodes")
+GG.Requires(cc.PACKAGE_NAME .. ".NodeEx")
+GG.Requires(cc.PACKAGE_NAME .. ".WidgetEx")
 
 if GG.Device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")

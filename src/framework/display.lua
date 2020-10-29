@@ -138,25 +138,25 @@ display.bottom = 0
 display.widthInPixels = display.sizeInPixels.width
 display.heightInPixels = display.sizeInPixels.height
 
-GG.Console.LF(string.format("# CONFIG_SCREEN_AUTOSCALE      = %s", GG.Env.CONFIG_SCREEN_AUTOSCALE))
-GG.Console.LF(string.format("# CONFIG_SCREEN_WIDTH          = %0.2f", GG.Env.CONFIG_SCREEN_WIDTH))
-GG.Console.LF(string.format("# CONFIG_SCREEN_HEIGHT         = %0.2f", GG.Env.CONFIG_SCREEN_HEIGHT))
-GG.Console.LF(string.format("# display.widthInPixels        = %0.2f", display.widthInPixels))
-GG.Console.LF(string.format("# display.heightInPixels       = %0.2f", display.heightInPixels))
-GG.Console.LF(string.format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
-GG.Console.LF(string.format("# display.width                = %0.2f", display.width))
-GG.Console.LF(string.format("# display.height               = %0.2f", display.height))
-GG.Console.LF(string.format("# display.cx                   = %0.2f", display.cx))
-GG.Console.LF(string.format("# display.cy                   = %0.2f", display.cy))
-GG.Console.LF(string.format("# display.left                 = %0.2f", display.left))
-GG.Console.LF(string.format("# display.right                = %0.2f", display.right))
-GG.Console.LF(string.format("# display.top                  = %0.2f", display.top))
-GG.Console.LF(string.format("# display.bottom               = %0.2f", display.bottom))
-GG.Console.LF(string.format("# display.c_left               = %0.2f", display.c_left))
-GG.Console.LF(string.format("# display.c_right              = %0.2f", display.c_right))
-GG.Console.LF(string.format("# display.c_top                = %0.2f", display.c_top))
-GG.Console.LF(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
-GG.Console.LF("#")
+GG.Console.PF("# CONFIG_SCREEN_AUTOSCALE      = %s", GG.Env.CONFIG_SCREEN_AUTOSCALE)
+GG.Console.PF("# CONFIG_SCREEN_WIDTH          = %0.2f", GG.Env.CONFIG_SCREEN_WIDTH)
+GG.Console.PF("# CONFIG_SCREEN_HEIGHT         = %0.2f", GG.Env.CONFIG_SCREEN_HEIGHT)
+GG.Console.PF("# display.widthInPixels        = %0.2f", display.widthInPixels)
+GG.Console.PF("# display.heightInPixels       = %0.2f", display.heightInPixels)
+GG.Console.PF("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor)
+GG.Console.PF("# display.width                = %0.2f", display.width)
+GG.Console.PF("# display.height               = %0.2f", display.height)
+GG.Console.PF("# display.cx                   = %0.2f", display.cx)
+GG.Console.PF("# display.cy                   = %0.2f", display.cy)
+GG.Console.PF("# display.left                 = %0.2f", display.left)
+GG.Console.PF("# display.right                = %0.2f", display.right)
+GG.Console.PF("# display.top                  = %0.2f", display.top)
+GG.Console.PF("# display.bottom               = %0.2f", display.bottom)
+GG.Console.PF("# display.c_left               = %0.2f", display.c_left)
+GG.Console.PF("# display.c_right              = %0.2f", display.c_right)
+GG.Console.PF("# display.c_top                = %0.2f", display.c_top)
+GG.Console.PF("# display.c_bottom             = %0.2f", display.c_bottom)
+GG.Console.P("#")
 
 display.COLOR_WHITE = cc.c3b(255, 255, 255)
 display.COLOR_YELLOW = cc.c3b(255, 255, 0)
@@ -176,21 +176,21 @@ display.TOP_TO_BOTTOM = 2
 display.BOTTOM_TO_TOP = 3
 
 display.CENTER = 1
-display.LEFT_TOP = 2;
+display.LEFT_TOP = 2
 display.TOP_LEFT = 2
-display.CENTER_TOP = 3;
+display.CENTER_TOP = 3
 display.TOP_CENTER = 3
-display.RIGHT_TOP = 4;
+display.RIGHT_TOP = 4
 display.TOP_RIGHT = 4
-display.CENTER_LEFT = 5;
+display.CENTER_LEFT = 5
 display.LEFT_CENTER = 5
-display.CENTER_RIGHT = 6;
+display.CENTER_RIGHT = 6
 display.RIGHT_CENTER = 6
-display.BOTTOM_LEFT = 7;
+display.BOTTOM_LEFT = 7
 display.LEFT_BOTTOM = 7
-display.BOTTOM_RIGHT = 8;
+display.BOTTOM_RIGHT = 8
 display.RIGHT_BOTTOM = 8
-display.BOTTOM_CENTER = 9;
+display.BOTTOM_CENTER = 9
 display.CENTER_BOTTOM = 9
 
 display.ANCHOR_POINTS = {cc.p(0.5, 0.5), -- CENTER
@@ -235,7 +235,6 @@ display.SCENE_TRANSITIONS = {
 }
 
 display.TEXTURES_PIXEL_FORMAT = {}
-
 display.DEFAULT_TTF_FONT = "Arial"
 display.DEFAULT_TTF_FONT_SIZE = 24
 

@@ -1,9 +1,8 @@
 --[[
   encrypt, decrypt, hash
-]]--
+]] --
 
 local crypto = {}
-
 
 --[[
   use AES256 to encrypt buffer
@@ -88,7 +87,9 @@ end
 ]]--
 function crypto.md5(input, isRawOutput)
     input = tostring(input)
-    if type(isRawOutput) ~= "boolean" then isRawOutput = false end
+    if type(isRawOutput) ~= "boolean" then
+        isRawOutput = false
+    end
     return cc.Crypto:MD5(input, isRawOutput)
 end
 
@@ -110,4 +111,10 @@ function crypto.md5file(path)
     return cc.Crypto:MD5File(path)
 end
 
-return crypto
+if _G.__GG_HINT__ then
+    GG.Crypto = crypto
+end
+
+return {
+    Crypto = crypto
+}
