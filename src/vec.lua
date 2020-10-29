@@ -1,13 +1,3 @@
---[[ 测试用例
-local v1 = GG.Vec(1)
-local v2 = GG.Vec(1)
-local v3 = GG.Vec(1,2,3,false)
-local v4 = GG.Vec(1,2,3,true)
-local t1 = v1:equal(v2)
-local t2 = v3 == v4
-print(v1.str, v2.str, v3.str, v4.str, t1, t2)
-]]
-
 local GG = _G.GG
 
 -- 定长数值数组
@@ -127,5 +117,15 @@ Vec = function(...)
     })
     return vec
 end
+
+--[[ test
+local v1 = Vec(1)
+local v2 = Vec(1)
+local v3 = Vec(1,2,3,false)
+local v4 = Vec(1,2,3,true)
+local t1 = v1:equal(v2)
+local t2 = v3 == v4
+print(v1.str, v2.str, v3.str, v4.str, t1, t2)
+]]
 
 return Vec
