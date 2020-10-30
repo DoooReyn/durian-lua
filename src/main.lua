@@ -145,7 +145,6 @@ GG.Requires("cocos.cocos2d.Cocos2d", "cocos.cocos2d.Cocos2dConstants", "cocos.co
     "cocos.fairygui.FairyGUIConstants")
 GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.env", "durian.vec")
 GG.Requires("quick.init")
--- GG.Run()
 
 -- 程序入口
 GG.Requires("app.MyApp").new():run()
