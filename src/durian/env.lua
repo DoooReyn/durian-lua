@@ -54,4 +54,12 @@ function Env.IsDebug()
     return not Env.IsRelease()
 end
 
+-- 初始化
+function Env.__Init()
+    if Env.IsRelease then
+        error = print
+        print = release_print
+    end
+end
+
 GG.Env = Env

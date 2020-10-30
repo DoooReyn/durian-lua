@@ -34,6 +34,7 @@ local __self_defined__ = _strsAsKey {"Display", "Device", "Crypto", "Json", "Lua
                                      "S_SpriteFrame", "S_Animation", "S_Application", "S_FileUtils"}
 
 -- 区别于quick的全局
+local _G = _G
 _G.GG = setmetatable({
     -- 框架介绍
     Framework = {
@@ -109,6 +110,9 @@ _G.GG = setmetatable({
     __newindex = function(self, k, v)
         if __sys_defined__[k] or __self_defined__[k] then
             rawset(self, k, v)
+            if v and type(v) == "table" and v.__Init and type(v.__Init) == "function" then
+                v.__Init(v)
+            end
             return
         end
         error(("`GG`: Can not set GG[%s] directly, please predefine it instead."):format(k), 2)
@@ -116,11 +120,12 @@ _G.GG = setmetatable({
 })
 
 -- 禁止挂载到全局
-local __g = _G
-setmetatable(__g, {
-    __newindex = function(_, _, _)
+_G.__G__TRACKBACK__ = function()
+end
+setmetatable(_G, {
+    __newindex = function(_, k, _)
         print(debug.traceback("", 2))
-        error("Can not mount variable to _G", 0)
+        error(("Can not mount variable [%s] to _G"):format(k), 0)
     end
 })
 
