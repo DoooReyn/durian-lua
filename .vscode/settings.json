@@ -16,7 +16,10 @@
         "require",
         "ccui",
         "Rapid2D_CAudio",
-        "LuaJavaBridge"
+        "LuaJavaBridge",
+        "sp",
+        "LuaObjcBridge",
+        "module"
     ],
     "Lua.diagnostics.disable": [
         113

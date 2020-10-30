@@ -813,7 +813,7 @@ function display.newLine(points, params)
     else
         borderColor = params.borderColor or cc.c4f(0, 0, 0, 1)
         radius = (params.borderWidth and params.borderWidth / 2) or 0.5
-        scale = checknumber(params.scale or 1.0)
+        scale = GG.Checker.Number(params.scale, 1.0)
     end
 
     for i, p in ipairs(points) do
@@ -1150,7 +1150,7 @@ end
   local animation = display.newAnimation(frames, 0.5 / 8)
 ]]--
 function display.newAnimation(frames, time)
-    time = time or 1.0 / #frames
+    time = time or (1.0 / #frames)
     return cc.Animation:createWithSpriteFrames(frames, time)
 end
 
