@@ -1,5 +1,5 @@
 -- 添加lua搜索路径
-package.path = "src/?.lua;src/framework/protobuf/?.lua"
+package.path = "src/?.lua;src/durian/?.lua;src/framework/protobuf/?.lua"
 
 -- 消息提示
 local Msg = {
