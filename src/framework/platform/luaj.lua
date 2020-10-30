@@ -47,10 +47,4 @@ function luaj.callStaticMethod(className, methodName, args, sig)
     return callJavaStaticMethod(className, methodName, args, sig)
 end
 
-if _G.__GG_HINT__ then
-    GG.LuaJ = luaj
-end
-
-return {
-    LuaJ = luaj
-}
+GG.Luaj = luaj

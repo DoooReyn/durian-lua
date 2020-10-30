@@ -39,10 +39,4 @@ function Env.IsDebug()
     return not Env.IsRelease()
 end
 
-if _G.__GG_HINT__ then
-    GG.Env = Env
-end
-
-return {
-    Env = Env
-}
+GG.Env = Env

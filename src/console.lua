@@ -1,25 +1,5 @@
--- 随机自增长ID
-local function GenerateID(seed)
-    seed = seed or os.time()
-    math.randomseed(seed)
-    local id = math.random(seed)
-    return function()
-        id = id + 1
-        return id
-    end
-end
-
 -- 控制台输出条目id
-local NextID = GenerateID(8086)
-
--- 参数格式化，首个参数应该为格式化文本
-local function Format(...)
-    local fmt = select(1, ...)
-    if type(fmt) == "string" then
-        return fmt:format(select(2, ...))
-    end
-    return ""
-end
+local NextID = GG.Magic.GenerateID(8086)
 
 -- 控制台输出
 local Console = {
@@ -54,7 +34,7 @@ end
 
 -- 打印格式化输出
 function Console.PF(...)
-    print(Format(...))
+    print(GG.Magic.Format(...))
 end
 
 -- 输出标记为group的信息
@@ -82,17 +62,17 @@ end
 
 -- 输出标记为Log的信息
 function Console.LF(...)
-    Console.G(Console.Tag.Log, Format(...))
+    Console.G(Console.Tag.Log, GG.Magic.Format(...))
 end
 
 -- 输出标记为Warn的信息
 function Console.WF(...)
-    Console.G(Console.Tag.Warn, Format(...))
+    Console.G(Console.Tag.Warn, GG.Magic.Format(...))
 end
 
 -- 输出标记为Error的信息
 function Console.EF(...)
-    Console.G(Console.Tag.Error, Format(...))
+    Console.G(Console.Tag.Error, GG.Magic.Format(...))
 end
 
 -- 数据转换为字符串
@@ -165,14 +145,4 @@ function Console.Dump(value, desciption, nesting)
     end
 end
 
-if _G.__GG_HINT__ then
-    GG.Console = Console
-    GG.Format = Format
-    GG.GenerateID = GenerateID
-end
-
-return {
-    Console = Console,
-    Format = Format,
-    GenerateID = GenerateID
-}
+GG.Console = Console

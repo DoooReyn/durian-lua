@@ -95,10 +95,4 @@ function device.openURL(url)
     sharedApplication:openURL(url)
 end
 
-if _G.__GG_HINT__ then
-    GG.Device = device
-end
-
-return {
-    Device = device
-}
+GG.Device = device

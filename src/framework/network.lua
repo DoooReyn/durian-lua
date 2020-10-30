@@ -256,10 +256,4 @@ function network.parseCookie(cookieString)
     return cookie
 end
 
-if _G.__GG_HINT__ then
-    GG.Network = network
-end
-
-return {
-    Network = network
-}
+GG.Network = network

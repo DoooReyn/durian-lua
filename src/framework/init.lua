@@ -37,7 +37,6 @@ if GG.Env.DEBUG_MEM then
         GG.Console.P("---------------------------------------------------")
         GG.Console.PF("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count"))
         GG.Console.P(S_Texture:getCachedTextureInfo())
-        GG.Console.P("---------------------------------------------------")
     end
     S_Scheduler:scheduleScriptFunc(showMemoryUsage, GG.Env.DEBUG_MEM_INTERVAL or 10.0, false)
 end
@@ -51,16 +50,7 @@ setmetatable(__g, {
     end
 })
 
-if _G.__GG_HINT__ then
-    GG.S_Director = S_Director
-    GG.S_Texture = S_Texture
-    GG.S_Scheduler = S_Scheduler
-    GG.S_EventDipatcher = S_EventDipatcher
-end
-
-GG.Exports({
-    S_Director = S_Director,
-    S_Texture = S_Texture,
-    S_Scheduler = S_Scheduler,
-    S_EventDipatcher = S_EventDipatcher
-})
+GG.S_Director = S_Director
+GG.S_Texture = S_Texture
+GG.S_Scheduler = S_Scheduler
+GG.S_EventDipatcher = S_EventDipatcher

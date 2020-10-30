@@ -235,10 +235,4 @@ function audio.resumeAll()
     end
 end
 
-if _G.__GG_HINT__ then
-    GG.Audio = audio
-end
-
-return {
-    Audio = audio
-}
+GG.Audio = audio

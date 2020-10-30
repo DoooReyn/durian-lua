@@ -1,35 +1,47 @@
 -- 添加lua搜索路径
 package.path = "src/?.lua;src/framework/protobuf/?.lua"
 
--- GG提示，忽略
-_G.__GG_HINT__ = false
+-- 消息提示
+local Msg = {
+    RequiresOk = "`Requires`: '%s' from file '%s' at line[%s].",
+    RequiresFail = "`Requires`: '%s' not exists.",
+    SetGlobal = "`GG`: Can not set GG[%s] directly, please predefine it instead.",
+    MountModule = "[v%s] %s",
+    ModuleInit = "`GG`: Init global module '%s'.",
+    ExportsFail = "`Exports`: expects table, but got %s.",
+    ExportsExist = "`Exports`: GG[%s] exists!"
+}
+
+-- 字符串数组映射为字符串字典
+local function StrsAsKey(t)
+    local r = {}
+    for _, v in ipairs(t) do
+        if type(v) == "string" then
+            r[v] = true
+        end
+    end
+    return r
+end
+
+-- 由系统保留的全局变量名称集合
+local __sys_defined__ = StrsAsKey {"Framework", "Exists", "Exports", "Deletes", "Requires", "Console", "Magic",
+                                   "Checker", "Env", "Vec", "v2", "v3"}
+
+-- 由用户自定义的全局变量名称集合
+local __self_defined__ = StrsAsKey {"Display", "Device", "Crypto", "Json", "Luaj", "Luaoc", "Audio",
+                                    "Network", "S_App", "S_Director", "S_Texture", "S_Scheduler", "S_EventDipatcher"}
 
 -- 区别于quick的全局
 _G.GG = {}
 setmetatable(GG, {
-    __newindex = function()
-        print("Can not change any value directly, please use `Exports/Deletes` instead.")
+    __newindex = function(self, k, v)
+        if __sys_defined__[k] or __self_defined__[k] then
+            rawset(self, k, v)
+            return
+        end
+        print(Msg.SetGlobal:format(k))
     end
 })
-
--- 空函数
-local function Idle()
-end
-
--- 打印输出
-local function Print(...)
-    (GG.Console and GG.Console.P or print)(...)
-end
-
--- 格式化打印输出
-local function Printf(fmt, ...)
-    Print(fmt:format(...))
-end
-
--- 格式化打印错误输出
-local function PrintEF(fmt, ...)
-    (GG.Console and GG.Console.EF or Printf)(fmt, ...)
-end
 
 -- 是否存在全局变量
 local function Exists(k)
@@ -47,13 +59,12 @@ local function Mount(k, v)
             __tostring = function(self)
                 local name = self.__name or self.Name or k
                 local version = self.__version or self.Version or "unknown"
-                local fmt = "[v%s] %s"
-                return fmt:format(version, name)
+                return Msg.MountModule:format(version, name)
             end
         })
     end
     if v.__Init and type(v.__Init) == "function" then
-        Print("Init global module：GG[" .. k .. "]")
+        print(Msg.ModuleInit:format(k))
         v.__Init(v)
     end
 end
@@ -61,13 +72,13 @@ end
 -- 挂载全局变量
 local function Exports(globals)
     if type(globals) ~= "table" then
-        Print(debug.traceback("`Exports` expects table, but got " .. type(globals), 2))
+        print(debug.traceback(Msg.ExportsFail:format(type(globals)), 2))
         return
     end
 
     for k, v in pairs(globals) do
         if Exists(k) then
-            PrintEF("GG[%s] exists!", k)
+            print(Msg.ExportsExist:format(k))
         else
             rawset(GG, k, v)
             Mount(k, v)
@@ -92,109 +103,14 @@ local function Requires(...)
     for _, v in ipairs({...}) do
         local state, globals = pcall(require, v)
         if state then
+            local info = debug.getinfo(2, "Sl")
+            print(Msg.RequiresOk:format(v, info.source, info.currentline))
             if type(globals) == "table" then
                 Exports(globals)
             end
         else
-            PrintEF("`Requires` path [%s] not exists", v)
+            print(Msg.RequiresFail:format(v))
         end
-    end
-end
-
--- 类继承实现
-local function Class(classname, super)
-    local superType = type(super)
-    local cls
-
-    if superType ~= "function" and superType ~= "table" then
-        superType = nil
-        super = nil
-    end
-
-    if superType == "function" or (super and super.__ctype == 1) then
-        -- inherited from native C++ Object
-        cls = {}
-
-        if superType == "table" then
-            -- copy fields from super
-            for k, v in pairs(super) do
-                cls[k] = v
-            end
-            cls.__create = super.__create
-            cls.super = super
-        else
-            cls.__create = super
-            cls.ctor = function()
-            end
-        end
-
-        cls.__cname = classname
-        cls.__ctype = 1
-
-        function cls.new(...)
-            local instance = cls.__create(...)
-            -- copy fields from class to native object
-            for k, v in pairs(cls) do
-                instance[k] = v
-            end
-            instance.class = cls
-            instance:ctor(...)
-            return instance
-        end
-
-    else
-        -- inherited from Lua Object
-        if super then
-            cls = {}
-            setmetatable(cls, {
-                __index = super
-            })
-            cls.super = super
-        else
-            cls = {
-                ctor = function()
-                end
-            }
-        end
-
-        cls.__cname = classname
-        cls.__ctype = 2 -- lua
-        cls.__index = cls
-
-        function cls.new(...)
-            local instance = setmetatable({}, cls)
-            instance.class = cls
-            instance:ctor(...)
-            return instance
-        end
-    end
-
-    return cls
-end
-
--- 深度拷贝
-local function Clone(object)
-    local lookup_table = {}
-    local function _copy(_object)
-        if type(_object) ~= "table" then
-            return _object
-        elseif lookup_table[_object] then
-            return lookup_table[_object]
-        end
-        local new_table = {}
-        lookup_table[_object] = new_table
-        for key, value in pairs(_object) do
-            new_table[_copy(key)] = _copy(value)
-        end
-        return setmetatable(new_table, getmetatable(_object))
-    end
-    return _copy(object)
-end
-
--- 利用闭包完成对象打包
-local function Pack(obj, method)
-    return function(...)
-        return method(obj, ...)
     end
 end
 
@@ -206,34 +122,16 @@ local Framework = {
     Author = "DoooReyn"
 }
 
-if _G.__GG_HINT__ then
-    GG.Framework = Framework
-    GG.Idle = Idle
-    GG.Class = Class
-    GG.Clone = Clone
-    GG.Pack = Pack
-    GG.Exists = Exists
-    GG.Exports = Exports
-    GG.Deletes = Deletes
-    GG.Requires = Requires
-end
-
-Exports({
-    Framework = Framework,
-    Idle = Idle,
-    Class = Class,
-    Clone = Clone,
-    Pack = Pack,
-    Exists = Exists,
-    Exports = Exports,
-    Deletes = Deletes,
-    Requires = Requires
-})
+GG.Framework = Framework
+GG.Exists = Exists
+GG.Exports = Exports
+GG.Deletes = Deletes
+GG.Requires = Requires
 
 -- 加载全局模块
-GG.Requires("checker", "console", "magic", "env", "vec")
+GG.Requires("magic", "checker", "console", "env", "vec")
 
 -- 程序入口
 require("app.MyApp").new():run()
 
-GG.Console.Dump(GG)
+-- GG.Console.Dump(GG)

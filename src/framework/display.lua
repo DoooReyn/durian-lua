@@ -1032,7 +1032,7 @@ function display.addSpriteFrames(plistFilename, image, handler)
             local texture = sharedTextureCache:getTextureForKey(image)
             assert(texture, string.format("The texture %s, %s is unavailable.", plistFilename, image))
             sharedSpriteFrameCache:addSpriteFrames(plistFilename, texture)
-            GG.Pack(plistFilename, image)
+            GG.Magic.Pack(plistFilename, image)
         end
     end
 
@@ -1237,10 +1237,4 @@ function display.captureScreen(callback, fileName)
     cc.utils:captureScreen(callback, fileName)
 end
 
-if _G.__GG_HINT__ then
-    GG.Display = display
-end
-
-return {
-    Display = display
-}
+GG.Display = display

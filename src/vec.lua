@@ -116,17 +116,13 @@ Vec = function(...)
     return vec
 end
 
-local Vec2 = function(x, y) return Vec(x, y) end
-local Vec3 = function(x, y, z) return Vec(x, y, z) end
-
-if _G.__GG_HINT__ then
-    GG.Vec = Vec
-    GG.Vec2 = Vec2
-    GG.Vec3 = Vec3
+local v2 = function(x, y)
+    return Vec(x, y)
+end
+local v3 = function(x, y, z)
+    return Vec(x, y, z)
 end
 
-return {
-    Vec = Vec,
-    v2 = Vec2,
-    v3 = Vec3
-}
+GG.Vec = Vec
+GG.v2 = v2
+GG.v3 = v3

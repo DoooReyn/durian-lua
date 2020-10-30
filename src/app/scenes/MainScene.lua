@@ -1,4 +1,4 @@
-local MainScene = GG.Class("MainScene", function()
+local MainScene = GG.Magic.Class("MainScene", function()
 	return GG.Display.newScene("MainScene")
 end)
 

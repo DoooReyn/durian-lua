@@ -1,4 +1,4 @@
-local AppBase = GG.Class("AppBase")
+local AppBase = GG.Magic.Class("AppBase")
 
 function AppBase:ctor()
     local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
@@ -14,12 +14,7 @@ function AppBase:ctor()
     eventDispatcher:addEventListenerWithFixedPriority(customListenerFg, 1)
 
     -- set global app
-    GG.Exports({
-        App = self
-    })
-    if _G.__GG_HINT__ then
-        GG.App = self
-    end
+    GG.S_App = self
 end
 
 function AppBase:run()

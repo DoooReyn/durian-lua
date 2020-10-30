@@ -2,7 +2,7 @@ require("cocos.init")
 require("framework.init")
 
 local AppBase = require("framework.AppBase")
-local MyApp = GG.Class("MyApp", AppBase)
+local MyApp = GG.Magic.Class("MyApp", AppBase)
 
 function MyApp:ctor()
     MyApp.super.ctor(self)

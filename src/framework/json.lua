@@ -48,10 +48,4 @@ function json.decode(text)
     end
 end
 
-if _G.__GG_HINT__ then
-    GG.Json = json
-end
-
-return {
-    Json = json
-}
+GG.Json = json

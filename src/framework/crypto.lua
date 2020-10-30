@@ -111,10 +111,4 @@ function crypto.md5file(path)
     return cc.Crypto:MD5File(path)
 end
 
-if _G.__GG_HINT__ then
-    GG.Crypto = crypto
-end
-
-return {
-    Crypto = crypto
-}
+GG.Crypto = crypto

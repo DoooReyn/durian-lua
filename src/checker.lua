@@ -150,10 +150,4 @@ function Checker.And(v, ...)
     return result
 end
 
-if _G.__GG_HINT__ then
-    GG.Checker = Checker
-end
-
-return {
-    Checker = Checker
-}
+GG.Checker = Checker
