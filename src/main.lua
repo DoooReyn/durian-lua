@@ -1,6 +1,10 @@
 -- 添加lua搜索路径
 package.path = "src/?.lua;src/quick/protobuf/?.lua"
 
+-------------------------------------------------------------------------------------
+-- 构建全局模块GG
+-------------------------------------------------------------------------------------
+
 -- 字符串数组映射为字符串字典
 local function _strsAsKey(t)
     local r = {}
@@ -31,7 +35,7 @@ local __sys_defined__ = _strsAsKey {"Framework", "Exists", "Exports", "Deletes",
 -- 由用户自定义的全局变量名称集合
 local __self_defined__ = _strsAsKey {"Display", "Device", "Crypto", "Json", "Luaj", "Luaoc", "Audio", "Network",
                                      "S_App", "S_Director", "S_Texture", "S_Scheduler", "S_EventDipatcher",
-                                     "S_SpriteFrame", "S_Animation", "S_Application", "S_FileUtils"}
+                                     "S_SpriteFrame", "S_Animation", "S_Application", "S_FileUtils", "S_UserDefault"}
 
 -- 区别于quick的全局
 local _G = _G
@@ -138,6 +142,7 @@ GG.S_SpriteFrame = cc.SpriteFrameCache:getInstance()
 GG.S_Animation = cc.AnimationCache:getInstance()
 GG.S_Application = cc.Application:getInstance()
 GG.S_FileUtils = cc.FileUtils:getInstance()
+GG.S_UserDefault = cc.UserDefault:getInstance()
 
 -------------------------------------------------------------------------------------
 -- 引入全局模块
@@ -150,4 +155,18 @@ GG.Requires("durian.env")
 GG.Requires("cocos.init")
 GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.vec")
 GG.Requires("quick.init")
+
+-------------------------------------------------------------------------------------
+-- 搜索路径
+-------------------------------------------------------------------------------------
+if not GG.S_FileUtils:isDirectoryExist("cache/") then
+    GG.S_FileUtils:createDirectory("cache/")
+end
+GG.S_FileUtils:setWritablePath("cache/")
+GG.S_FileUtils:addSearchPath("res/")
+GG.S_FileUtils:addSearchPath("cache/")
+
+-------------------------------------------------------------------------------------
+-- 进入游戏
+-------------------------------------------------------------------------------------
 GG.Requires("app.MyApp").new():run()

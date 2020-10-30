@@ -1,0 +1,66 @@
+alcOpenDevice Opened "OpenAL Soft on 扬声器 (Realtek High Definition Audio)"
+[LUA-print] `Requires`: 'durian.env' from file '././src/main.lua' at line[154].
+[LUA-print] `Requires`: 'cocos.cocos2d.Cocos2d' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cocos.cocos2d.Cocos2dConstants' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cocos.cocos2d.RendererConstants' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cocos.ui.GuiConstants' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cocos.network.NetworkConstants' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cocos.init' from file '././src/main.lua' at line[155].
+[LUA-print] `Requires`: 'durian.magic' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.checker' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.console' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.vec' from file '././src/main.lua' at line[110].
+[LUA-print] ===========================================================
+[LUA-print]               LOAD Cocos2d-Lua-Community FRAMEWORK
+[LUA-print] ===========================================================
+[LUA-print] # DEBUG = 2
+[LUA-print] `Requires`: 'quick.functions' from file '././src/main.lua' at line[110].
+[LUA-print] #
+[LUA-print] # device.platform              = windows
+[LUA-print] # device.model                 = unknown
+[LUA-print] # device.language              = cn
+[LUA-print] # device.writablePath          = ./cache/
+[LUA-print] # device.directorySeparator    = \
+[LUA-print] # device.pathSeparator         = ;
+[LUA-print] #
+[LUA-print] `Requires`: 'quick.device' from file '././src/main.lua' at line[110].
+[LUA-print] # CONFIG_SCREEN_AUTOSCALE      = FIXED_WIDTH
+[LUA-print] # CONFIG_SCREEN_WIDTH          = 1136.00
+[LUA-print] # CONFIG_SCREEN_HEIGHT         = 640.00
+[LUA-print] # display.widthInPixels        = 1136.00
+[LUA-print] # display.heightInPixels       = 640.00
+[LUA-print] # display.contentScaleFactor   = 1.00
+[LUA-print] # display.width                = 1136.00
+[LUA-print] # display.height               = 640.00
+[LUA-print] # display.cx                   = 568.00
+[LUA-print] # display.cy                   = 320.00
+[LUA-print] # display.left                 = 0.00
+[LUA-print] # display.right                = 1136.00
+[LUA-print] # display.top                  = 640.00
+[LUA-print] # display.bottom               = 0.00
+[LUA-print] # display.c_left               = -568.00
+[LUA-print] # display.c_right              = 568.00
+[LUA-print] # display.c_top                = 320.00
+[LUA-print] # display.c_bottom             = -320.00
+[LUA-print] #
+[LUA-print] `Requires`: 'quick.display' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.scheduler' from file 'src/quick/audio.lua' at line[61].
+[LUA-print] `Requires`: 'quick.audio' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.network' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.crypto' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cjson' from file 'src/quick/json.lua' at line[6].
+[LUA-print] `Requires`: 'quick.json' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.shortcodes' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.NodeEx' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.WidgetEx' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.init' from file '././src/main.lua' at line[157].
+[LUA-print] `Requires`: 'quick.AppBase' from file 'src/app/MyApp.lua' at line[1].
+[LUA-print] `Requires`: 'app.MyApp' from file '././src/main.lua' at line[172].
+[LUA-print] `Requires`: 'app.scenes.MainScene' from file 'src/quick/AppBase.lua' at line[43].
+cocos2d: QuadCommand: resizing index size from [-1] to [2560]
+[LUA-print] ---------------------------------------------------
+[LUA-print] LUA VM MEMORY USED: 2216.38 KB
+[LUA-print] "./res/HelloWorld.png" rc=2 id=0B838DA8 195 x 270 @ 32 bpp => 205 KB
+"/cc_fps_images" rc=4 id=0B838268 999 x 54 @ 16 bpp => 105 KB
+TextureCache dumpDebugInfo: 2 textures, for 311 KB (0.30 MB)
+
