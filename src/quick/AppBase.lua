@@ -19,7 +19,7 @@ function AppBase:ctor()
         self.__time = nil
         print("App Enter Foreground: ", leave_time)
         if GG.Env.APP_TIME_OUT and GG.Env.APP_TIME_OUT > 0 and leave_time >= GG.Env.APP_TIME_OUT then
-            GG.S_App:enterScene("MainScene")
+            GG.S_App:run()
             return
         end
         GG.Audio.resumeAll()
