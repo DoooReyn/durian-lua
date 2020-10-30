@@ -41,7 +41,10 @@ local Env = {
     USE_PHYSICS = false,
 
     -- 是否使用FairyGUI
-    USE_FAIRY_GUI = false
+    USE_FAIRY_GUI = false,
+
+    -- 从后台返回的超时时间(s)
+    APP_TIME_OUT = 60
 }
 
 -- 是否正式环境

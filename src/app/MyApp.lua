@@ -6,7 +6,8 @@ function MyApp:ctor()
 end
 
 function MyApp:run()
-    GG.S_FileUtils:addSearchPath("res/")
+    -- 将App设置为全局可访问
+    GG.S_App = self
     self:enterScene("MainScene")
 end
 

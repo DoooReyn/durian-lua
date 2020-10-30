@@ -1,15 +1,14 @@
 local MainScene = GG.Magic.Class("MainScene", function()
-	return GG.Display.newScene("MainScene")
+    return GG.Display.newScene("MainScene")
 end)
 
 function MainScene:ctor()
-	GG.Display.newSprite("HelloWorld.png")
-		:addTo(self)
-		:center()
+    GG.Display.newSprite("HelloWorld.png"):addTo(self):center()
 
-	GG.Display.newTTFLabel({text = "Hello, World", size = 64})
-		:align(GG.Display.CENTER, GG.Display.cx, GG.Display.cy)
-		:addTo(self)
+    GG.Display.newTTFLabel({
+        text = "Hello, World",
+        size = 64
+    }):align(GG.Display.CENTER, GG.Display.cx, GG.Display.cy):addTo(self)
 end
 
 function MainScene:onEnter()

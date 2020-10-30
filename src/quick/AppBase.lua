@@ -6,8 +6,8 @@ function AppBase:ctor()
 
     -- 监听进入后台事件
     local customListenerBg = cc.EventListenerCustom:create("APP_ENTER_BACKGROUND_EVENT", function()
-        print("App Enter Background: ", self.__time)
         self.__time = os.time()
+        print("App Enter Background: ", self.__time)
         GG.Audio.pauseAll()
         self:onEnterBackground()
     end)
@@ -15,16 +15,17 @@ function AppBase:ctor()
     -- 监听进入前台事件
     GG.S_EventDipatcher:addEventListenerWithFixedPriority(customListenerBg, 1)
     local customListenerFg = cc.EventListenerCustom:create("APP_ENTER_FOREGROUND_EVENT", function()
-        GG.Audio.resumeAll()
         local leave_time = os.time() - self.__time
         self.__time = nil
         print("App Enter Foreground: ", leave_time)
+        if GG.Env.APP_TIME_OUT and GG.Env.APP_TIME_OUT > 0 and leave_time >= GG.Env.APP_TIME_OUT then
+            GG.S_App:enterScene("MainScene")
+            return
+        end
+        GG.Audio.resumeAll()
         self:onEnterForeground()
     end)
     GG.S_EventDipatcher:addEventListenerWithFixedPriority(customListenerFg, 1)
-
-    -- 将App设置为全局可访问
-    GG.S_App = self
 end
 
 function AppBase:run()
@@ -51,7 +52,7 @@ function AppBase:createView(viewName, ...)
 end
 
 function AppBase:refresh()
-    
+
 end
 
 -- override me
