@@ -127,6 +127,7 @@ function Checker.KindOf(obj, classname)
 end
 
 -- 对参数列表进行或运算检测
+-- 是否参数中的一项
 function Checker.Or(v, ...)
     local result = false
     for _, p in ipairs({...}) do
@@ -137,8 +138,10 @@ function Checker.Or(v, ...)
     end
     return result
 end
+Checker.SomeOf = Checker.Or
 
 -- 对参数列表进行与运算检测
+-- 所有参数是否都符合
 function Checker.And(v, ...)
     local result = true
     for _, p in ipairs({...}) do
@@ -149,5 +152,14 @@ function Checker.And(v, ...)
     end
     return result
 end
+Checker.AllOf = Checker.And
+
+-- 对参数列表进行非运算检测
+-- 是否不在参数中
+function Checker.Not(v, ...)
+    return not Checker.Or(v, ...)
+end
+Checker.NoneOf = Checker.Not
+
 
 GG.Checker = Checker
