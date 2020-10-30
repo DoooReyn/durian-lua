@@ -19,7 +19,8 @@
         "LuaJavaBridge",
         "sp",
         "LuaObjcBridge",
-        "module"
+        "module",
+        "release_print"
     ],
     "Lua.diagnostics.disable": [
         113
