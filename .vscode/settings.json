@@ -17,5 +17,8 @@
         "ccui",
         "Rapid2D_CAudio",
         "LuaJavaBridge"
+    ],
+    "Lua.diagnostics.disable": [
+        113
     ]
 }
