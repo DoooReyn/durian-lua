@@ -1,4 +1,4 @@
-local core = require "sproto.core"
+local core = GG.Requires "sproto.core"
 local assert = assert
 
 local sproto = {}
@@ -33,7 +33,7 @@ function sproto.sharenew(cobj)
 end
 
 function sproto.parse(ptext)
-	local parser = require "sprotoparser"
+	local parser = GG.Requires "sprotoparser"
 	local pbin = parser.parse(ptext)
 	return sproto.new(pbin)
 end

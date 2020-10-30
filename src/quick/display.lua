@@ -876,7 +876,7 @@ end
   })
 ]]--
 function display.newBMFontLabel(params)
-    assert(type(params) == "table", "[framework.display] newBMFontLabel() invalid params")
+    assert(type(params) == "table", "display.newBMFontLabel() invalid params")
 
     local text = tostring(params.text)
     local font = params.font
@@ -885,7 +885,7 @@ function display.newBMFontLabel(params)
     local offsetX = params.offsetX or 0
     local offsetY = params.offsetY or 0
     local x, y = params.x, params.y
-    assert(font ~= nil, "framework.display.newBMFontLabel() - not set font")
+    assert(font ~= nil, "display.newBMFontLabel() - not set font")
 
     local label = cc.Label:createWithBMFont(font, text, textAlign, maxLineW, cc.p(offsetX, offsetY));
     if not label then
@@ -927,7 +927,7 @@ end
   })
 ]]--
 function display.newTTFLabel(params)
-    assert(type(params) == "table", "[framework.display] newTTFLabel() invalid params")
+    assert(type(params) == "table", "display.newTTFLabel() invalid params")
 
     local text = tostring(params.text)
     local font = params.font or display.DEFAULT_TTF_FONT
@@ -938,10 +938,10 @@ function display.newTTFLabel(params)
     local x, y = params.x, params.y
     local dimensions = params.dimensions or cc.size(0, 0)
 
-    assert(type(size) == "number", "[framework.display] newTTFLabel() invalid params.size")
+    assert(type(size) == "number", "display.newTTFLabel() invalid params.size")
 
     local label
-    if cc.FileUtils:getInstance():isFileExist(font) then
+    if GG.S_FileUtils:isFileExist(font) then
         label = cc.Label:createWithTTF(text, font, size, dimensions, textAlign, textValign)
         if label then
             label:setColor(color)
@@ -1078,7 +1078,7 @@ end
 ]]--
 function display.removeSpriteFrameByImageName(imageName)
     GG.S_SpriteFrame:removeSpriteFrameByName(imageName)
-    cc.Director:getInstance():getTextureCache():removeTextureForKey(imageName)
+    GG.S_Texture:removeTextureForKey(imageName)
 end
 
 --[[

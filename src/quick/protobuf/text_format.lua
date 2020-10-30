@@ -22,7 +22,7 @@ local table = table
 local ipairs = ipairs
 local tostring = tostring
 
-local descriptor = require "descriptor"
+local descriptor = GG.Requires "descriptor"
 
 module "text_format"
 

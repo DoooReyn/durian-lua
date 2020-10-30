@@ -28,14 +28,14 @@ end
 
 function AppBase:enterScene(sceneName, transitionType, time, more, ...)
     local scenePackageName = "app.scenes." .. sceneName
-    local sceneClass = require(scenePackageName)
+    local sceneClass = GG.Requires(scenePackageName)
     local scene = sceneClass.new(...)
     GG.Display.replaceScene(scene, transitionType, time, more)
 end
 
 function AppBase:createView(viewName, ...)
     local viewPackageName = "app.views." .. viewName
-    local viewClass = require(viewPackageName)
+    local viewClass = GG.Requires(viewPackageName)
     return viewClass.new(...)
 end
 

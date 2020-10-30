@@ -1,8 +1,8 @@
 -- 添加lua搜索路径
-package.path = "src/?.lua;src/framework/protobuf/?.lua"
+package.path = "src/?.lua;src/quick/protobuf/?.lua"
 
 -- 字符串数组映射为字符串字典
-local function StrsAsKey(t)
+local function _strsAsKey(t)
     local r = {}
     for _, v in ipairs(t) do
         if type(v) == "string" then
@@ -12,14 +12,26 @@ local function StrsAsKey(t)
     return r
 end
 
+-- 导入模块
+local function _require(path)
+    local state, globals = pcall(require, path)
+    if state then
+        local info = debug.getinfo(2, "Sl")
+        print(("`Requires`: '%s' from file '%s' at line[%s]."):format(path, info.source, info.currentline))
+    else
+        error(("`Requires`: '%s' not exists."):format(path), 2)
+    end
+    return globals
+end
+
 -- 由系统保留的全局变量名称集合
-local __sys_defined__ = StrsAsKey {"Framework", "Exists", "Exports", "Deletes", "Requires", "Console", "Magic",
-                                   "Checker", "Env", "Vec", "v2", "v3"}
+local __sys_defined__ = _strsAsKey {"Framework", "Exists", "Exports", "Deletes", "Requires", "Console", "Magic",
+                                    "Checker", "Env", "Vec", "v2", "v3"}
 
 -- 由用户自定义的全局变量名称集合
-local __self_defined__ = StrsAsKey {"Display", "Device", "Crypto", "Json", "Luaj", "Luaoc", "Audio", "Network", "S_App",
-                                    "S_Director", "S_Texture", "S_Scheduler", "S_EventDipatcher", "S_SpriteFrame",
-                                    "S_Animation", "S_Application", "S_FileUtils"}
+local __self_defined__ = _strsAsKey {"Display", "Device", "Crypto", "Json", "Luaj", "Luaoc", "Audio", "Network",
+                                     "S_App", "S_Director", "S_Texture", "S_Scheduler", "S_EventDipatcher",
+                                     "S_SpriteFrame", "S_Animation", "S_Application", "S_FileUtils"}
 
 -- 区别于quick的全局
 _G.GG = setmetatable({
@@ -85,17 +97,12 @@ _G.GG = setmetatable({
     end,
     -- 导入全局变量
     Requires = function(...)
-        for _, v in ipairs({...}) do
-            local state, globals = pcall(require, v)
-            if state then
-                local info = debug.getinfo(2, "Sl")
-                print(("`Requires`: '%s' from file '%s' at line[%s]."):format(v, info.source, info.currentline))
-                if type(globals) == "table" then
-                    GG.Exports(globals)
-                end
-            else
-                print(("`Requires`: '%s' not exists."):format(v))
-            end
+        if select("#", ...) == 1 then
+            local path = select(1, ...)
+            return _require(path)
+        end
+        for _, path in ipairs({...}) do
+            _require(path)
         end
     end
 }, {
@@ -117,14 +124,28 @@ setmetatable(__g, {
     end
 })
 
+-- 挂载cc单例对象
+GG.S_Director = cc.Director:getInstance()
+GG.S_Texture = GG.S_Director:getTextureCache()
+GG.S_EventDipatcher = GG.S_Director:getEventDispatcher()
+GG.S_Scheduler = GG.S_Director:getScheduler()
+GG.S_SpriteFrame = cc.SpriteFrameCache:getInstance()
+GG.S_Animation = cc.AnimationCache:getInstance()
+GG.S_Application = cc.Application:getInstance()
+GG.S_FileUtils = cc.FileUtils:getInstance()
+
 -- 引入全局模块，注意引入顺序
 -- 优先加载cocos
 -- 其次使用durian
 -- 最后是quick
-GG.Requires("cocos.init")
+-- 可以视情况自行删减
+GG.Requires("cocos.cocos2d.Cocos2d", "cocos.cocos2d.Cocos2dConstants", "cocos.cocos2d.RendererConstants",
+    "cocos.3d.3dConstants", "cocos.controller.ControllerConstants", "cocos.ui.GuiConstants",
+    "cocos.network.NetworkConstants", "cocos.spine.SpineConstants", "cocos.physics3d.physics3d-constants",
+    "cocos.fairygui.FairyGUIConstants")
 GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.env", "durian.vec")
-GG.Requires("framework.init")
+GG.Requires("quick.init")
 -- GG.Run()
 
 -- 程序入口
-require("app.MyApp").new():run()
+GG.Requires("app.MyApp").new():run()

@@ -22,9 +22,9 @@ local ipairs = ipairs
 local error = error
 local print = GG.Console.P
 
-local pb = require "pb"
-local encoder = require "encoder"
-local wire_format = require "wire_format"
+local pb = GG.Requires "pb"
+local encoder = GG.Requires "encoder"
+local wire_format = GG.Requires "wire_format"
 module "decoder"
 
 local _DecodeVarint = pb.varint_decoder

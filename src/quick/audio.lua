@@ -58,7 +58,7 @@ end
 audio._BGMVolume = 1.0
 audio._effectVolume = 1.0
 
-local scheduler = require("framework.scheduler")
+local scheduler = GG.Requires("quick.scheduler")
 
 -- INTERNAL API, recircle source from effects, call by director
 local function update(dt)

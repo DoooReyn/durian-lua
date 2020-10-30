@@ -20,8 +20,8 @@ local table = table
 local ipairs = ipairs
 local assert =assert
 
-local pb = require "pb"
-local wire_format = require "wire_format"
+local pb = GG.Requires "pb"
+local wire_format = GG.Requires "wire_format"
 module "encoder"
 
 function _VarintSize(value)

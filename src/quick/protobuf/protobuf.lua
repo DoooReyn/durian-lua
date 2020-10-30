@@ -28,16 +28,16 @@ local string = string
 local tostring = tostring
 local type = type
 
-local pb = require "pb"
-local wire_format = require "wire_format"
-local type_checkers = require "type_checkers"
-local encoder = require "encoder"
-local decoder = require "decoder"
-local listener_mod = require "listener"
-local containers = require "containers"
-local descriptor = require "descriptor"
+local pb = GG.Requires "pb"
+local wire_format = GG.Requires "wire_format"
+local type_checkers = GG.Requires "type_checkers"
+local encoder = GG.Requires "encoder"
+local decoder = GG.Requires "decoder"
+local listener_mod = GG.Requires "listener"
+local containers = GG.Requires "containers"
+local descriptor = GG.Requires "descriptor"
 local FieldDescriptor = descriptor.FieldDescriptor
-local text_format = require "text_format"
+local text_format = GG.Requires "text_format"
 
 module("protobuf")
 

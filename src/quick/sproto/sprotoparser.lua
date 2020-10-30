@@ -1,5 +1,5 @@
-local lpeg = require "lpeg"
-local table = require "table"
+local lpeg = GG.Requires "lpeg"
+local table = GG.Requires "table"
 
 local packbytes
 local packvalue

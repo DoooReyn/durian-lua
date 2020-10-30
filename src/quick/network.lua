@@ -127,7 +127,7 @@ end
     end
   end
 
-  local savePath = cc.FileUtils:getInstance():getWritablePath() .. "download.data"
+  local savePath = GG.S_FileUtils:getWritablePath() .. "download.data"
   local request = network.createHTTPDownload(onRequestCallback, "https://baidu.com", savePath)
   request:start()
 ]]--

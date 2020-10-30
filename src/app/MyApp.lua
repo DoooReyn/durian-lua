@@ -1,4 +1,4 @@
-local AppBase = require("framework.AppBase")
+local AppBase = GG.Requires("quick.AppBase")
 local MyApp = GG.Magic.Class("MyApp", AppBase)
 
 function MyApp:ctor()

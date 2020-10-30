@@ -3,7 +3,7 @@
 ]] --
 
 local json = {}
-local cjson = require("cjson")
+local cjson = GG.Requires("cjson")
 json.null = cjson.null
 
 --[[

@@ -16,7 +16,7 @@ end
 ]]--
 function math.newrandomseed()
     local ok, socket = pcall(function()
-        return require("socket")
+        return GG.Requires("socket")
     end)
 
     if ok then -- Luasocket's gettime return microsecond
@@ -64,7 +64,7 @@ end
   @return boolean
 
   example:
-  local path = cc.FileUtils:getInstance():fullPathForFilename("data.txt")
+  local path = GG.S_FileUtils:fullPathForFilename("data.txt")
   if io.exists(path) then
     GG.Console.P("exists")
   end
@@ -85,7 +85,7 @@ end
   @return string
 
   example:
-  local path = cc.FileUtils:getInstance():fullPathForFilename("data.txt")
+  local path = GG.S_FileUtils:fullPathForFilename("data.txt")
   local buf = io.readfile(path)
 ]]--
 function io.readfile(path)

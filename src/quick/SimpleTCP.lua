@@ -5,13 +5,13 @@
 
   This is Not auto loaded module, use following code to load.
   example:
-  local SimpleTCP = require("framework.SimpleTCP")
+  local SimpleTCP = GG.Requires("quick.SimpleTCP")
 ]]--
 
-local socket = require "socket"
+local socket = GG.Requires "socket"
 if not socket then return end
 
-local scheduler = require("framework.scheduler")
+local scheduler = GG.Requires("quick.scheduler")
 local SimpleTCP = GG.Magic.Class("SimpleTCP")
 
 local string = string

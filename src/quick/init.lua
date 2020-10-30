@@ -7,23 +7,14 @@ GG.Env.DEBUG = GG.Checker.Number(GG.Env.DEBUG, 0)
 GG.Env.DEBUG_FPS = GG.Checker.Bool(GG.Env.DEBUG_FPS, false)
 GG.Env.DEBUG_MEM = GG.Checker.Bool(GG.Env.DEBUG_MEM, false)
 
-GG.S_Director = cc.Director:getInstance()
-GG.S_Texture = GG.S_Director:getTextureCache()
-GG.S_EventDipatcher = GG.S_Director:getEventDispatcher()
-GG.S_Scheduler = GG.S_Director:getScheduler()
-GG.S_SpriteFrame = cc.SpriteFrameCache:getInstance()
-GG.S_Animation = cc.AnimationCache:getInstance()
-GG.S_Application = cc.Application:getInstance()
-GG.S_FileUtils = cc.FileUtils:getInstance()
-
 GG.Console.P("# DEBUG = " .. GG.Env.DEBUG)
-GG.Requires("framework.functions", "framework.device", "framework.display", "framework.audio", "framework.network",
-    "framework.crypto", "framework.json", "framework.shortcodes", "framework.NodeEx", "framework.WidgetEx")
+GG.Requires("quick.functions", "quick.device", "quick.display", "quick.audio", "quick.network",
+    "quick.crypto", "quick.json", "quick.shortcodes", "quick.NodeEx", "quick.WidgetEx")
 
 if GG.Device.IsAndroid then
-    GG.Requires("framework.platform.luaj")
+    GG.Requires("quick.platform.luaj")
 elseif GG.Device.IsIos or GG.Device.IsMac then
-    GG.Requires("framework.platform.luaoc")
+    GG.Requires("quick.platform.luaoc")
 end
 
 GG.S_Director:setDisplayStats(GG.Checker.Bool(GG.Env.DEBUG_FPS))

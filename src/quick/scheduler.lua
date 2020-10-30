@@ -1,12 +1,12 @@
 --[[
   Global scheduler. This is Not auto loaded module, use following code to load.
   example:
-  local scheduler = require("framework.scheduler")
+  local scheduler = GG.Requires("quick.scheduler")
 ]]--
 
 local scheduler = {}
 
-local sharedScheduler = cc.Director:getInstance():getScheduler()
+local sharedScheduler = GG.S_Scheduler
 
 --[[
   Global frame event scheduler, need manually call scheduler.unscheduleGlobal() to stop scheduler.

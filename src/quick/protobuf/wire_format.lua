@@ -15,7 +15,7 @@
 --------------------------------------------------------------------------------
 --
 
-local pb = require "pb"
+local pb = GG.Requires "pb"
 module "wire_format"
 
 WIRETYPE_VARINT = 0

@@ -22,7 +22,7 @@ local Console = {
 
 -- 控制台初始化
 function Console.__Init()
-    if cc.Application:getInstance():getTargetPlatform() == 0 then
+    if GG.S_Application:getTargetPlatform() == 0 then
         os.execute(Console.__theme)
     end
 end
