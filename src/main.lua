@@ -134,4 +134,4 @@ GG.Requires("magic", "checker", "console", "env", "vec")
 -- 程序入口
 require("app.MyApp").new():run()
 
--- GG.Console.Dump(GG)
+GG.Console.Dump(GG, "GG", 1)
