@@ -308,7 +308,7 @@ function cc.rectIntersection(rect1, rect2)
 end
 
 -- Color3B
-function cc.c3b(_r, _g, _b)
+function cc.rgb(_r, _g, _b)
     return {
         r = _r,
         g = _g,
@@ -317,7 +317,7 @@ function cc.c3b(_r, _g, _b)
 end
 
 -- Color4B
-function cc.c4b(_r, _g, _b, _a)
+function cc.rgba(_r, _g, _b, _a)
     return {
         r = _r,
         g = _g,

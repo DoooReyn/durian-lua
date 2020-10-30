@@ -1,7 +1,7 @@
 --[[
   Global scheduler. This is Not auto loaded module, use following code to load.
   example:
-  local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
+  local scheduler = require("framework.scheduler")
 ]]--
 
 local scheduler = {}

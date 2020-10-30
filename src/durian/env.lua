@@ -16,7 +16,7 @@ local Env = {
     DEBUG_MEM = true,
 
     -- 输出内存信息间隔
-    DEBUG_MEM_INTERVAL = 30,
+    DEBUG_MEM_INTERVAL = 10,
 
     -- 设计分辨率
     CONFIG_SCREEN_WIDTH = 1136,

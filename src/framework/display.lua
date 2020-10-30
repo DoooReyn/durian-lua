@@ -21,27 +21,23 @@
     display.c_bottom          , bottom Coordinate X of screen when origin is at sreen center
 
   color constant:
-    display.COLOR_WHITE       , cc.c3b(255, 255, 255)
-    display.COLOR_YELLOW      , cc.c3b(255, 255, 0)
-    display.COLOR_GREEN       , cc.c3b(0, 255, 0)
-    display.COLOR_BLUE        , cc.c3b(0, 0, 255)
-    display.COLOR_RED         , cc.c3b(255, 0, 0)
-    display.COLOR_MAGENTA     , cc.c3b(255, 0, 255)
-    display.COLOR_BLACK       , cc.c3b(0, 0, 0)
-    display.COLOR_ORANGE      , cc.c3b(255, 127, 0)
-    display.COLOR_GRAY        , cc.c3b(166, 166, 166)
+    display.COLOR_WHITE       , cc.rgb(255, 255, 255)
+    display.COLOR_YELLOW      , cc.rgb(255, 255, 0)
+    display.COLOR_GREEN       , cc.rgb(0, 255, 0)
+    display.COLOR_BLUE        , cc.rgb(0, 0, 255)
+    display.COLOR_RED         , cc.rgb(255, 0, 0)
+    display.COLOR_MAGENTA     , cc.rgb(255, 0, 255)
+    display.COLOR_BLACK       , cc.rgb(0, 0, 0)
+    display.COLOR_ORANGE      , cc.rgb(255, 127, 0)
+    display.COLOR_GRAY        , cc.rgb(166, 166, 166)
 ]] --
 
 local display = {}
 
-local sharedDirector = cc.Director:getInstance()
-local sharedTextureCache = cc.Director:getInstance():getTextureCache()
-local sharedSpriteFrameCache = cc.SpriteFrameCache:getInstance()
-local sharedAnimationCache = cc.AnimationCache:getInstance()
-
--- check GG.Device screen size
-local glview = sharedDirector:getOpenGLView()
+-- check device screen size
+local glview = GG.S_Director:getOpenGLView()
 assert(glview ~= nil, "Error: GLView not inited!")
+
 local size = glview:getFrameSize()
 display.sizeInPixels = {
     width = size.width,
@@ -116,7 +112,7 @@ else
     scale = 1.0
 end
 
-local winSize = sharedDirector:getWinSize()
+local winSize = GG.S_Director:getWinSize()
 display.screenScale = 2.0
 display.contentScaleFactor = scale
 display.size = {
@@ -157,16 +153,15 @@ GG.Console.PF("# display.c_right              = %0.2f", display.c_right)
 GG.Console.PF("# display.c_top                = %0.2f", display.c_top)
 GG.Console.PF("# display.c_bottom             = %0.2f", display.c_bottom)
 GG.Console.P("#")
-
-display.COLOR_WHITE = cc.c3b(255, 255, 255)
-display.COLOR_YELLOW = cc.c3b(255, 255, 0)
-display.COLOR_GREEN = cc.c3b(0, 255, 0)
-display.COLOR_BLUE = cc.c3b(0, 0, 255)
-display.COLOR_RED = cc.c3b(255, 0, 0)
-display.COLOR_MAGENTA = cc.c3b(255, 0, 255)
-display.COLOR_BLACK = cc.c3b(0, 0, 0)
-display.COLOR_ORANGE = cc.c3b(255, 127, 0)
-display.COLOR_GRAY = cc.c3b(166, 166, 166)
+display.COLOR_WHITE = cc.rgb(255, 255, 255)
+display.COLOR_YELLOW = cc.rgb(255, 255, 0)
+display.COLOR_GREEN = cc.rgb(0, 255, 0)
+display.COLOR_BLUE = cc.rgb(0, 0, 255)
+display.COLOR_RED = cc.rgb(255, 0, 0)
+display.COLOR_MAGENTA = cc.rgb(255, 0, 255)
+display.COLOR_BLACK = cc.rgb(0, 0, 0)
+display.COLOR_ORANGE = cc.rgb(255, 127, 0)
+display.COLOR_GRAY = cc.rgb(166, 166, 166)
 
 display.AUTO_SIZE = 0
 display.FIXED_SIZE = 1
@@ -206,7 +201,7 @@ cc.p(0.5, 0) -- BOTTOM_CENTER
 
 display.SCENE_TRANSITIONS = {
     CROSSFADE = {cc.TransitionCrossFade, 2},
-    FADE = {cc.TransitionFade, 3, cc.c3b(0, 0, 0)},
+    FADE = {cc.TransitionFade, 3, cc.rgb(0, 0, 0)},
     FADEBL = {cc.TransitionFadeBL, 2},
     FADEDOWN = {cc.TransitionFadeDown, 2},
     FADETR = {cc.TransitionFadeTR, 2},
@@ -348,16 +343,16 @@ end
   @param mixed more, param needed be some transition type
 
   example:
-  display.replaceScene(nextScene, "fade", 0.5, cc.c3b(255, 0, 0))
+  display.replaceScene(nextScene, "fade", 0.5, cc.rgb(255, 0, 0))
 ]]--
 function display.replaceScene(newScene, transitionType, time, more)
-    if sharedDirector:getRunningScene() then
+    if GG.S_Director:getRunningScene() then
         if transitionType then
             newScene = display.wrapSceneWithTransition(newScene, transitionType, time, more)
         end
-        sharedDirector:replaceScene(newScene)
+        GG.S_Director:replaceScene(newScene)
     else
-        sharedDirector:runWithScene(newScene)
+        GG.S_Director:runWithScene(newScene)
     end
 end
 
@@ -367,7 +362,7 @@ end
   @return Scene ret, cc.Scene
 ]]--
 function display.getRunningScene()
-    return sharedDirector:getRunningScene()
+    return GG.S_Director:getRunningScene()
 end
 
 --[[
@@ -375,7 +370,7 @@ end
   @function pause
 ]]--
 function display.pause()
-    sharedDirector:pause()
+    GG.S_Director:pause()
 end
 
 --[[
@@ -383,7 +378,7 @@ end
   @function resume
 ]]--
 function display.resume()
-    sharedDirector:resume()
+    GG.S_Director:resume()
 end
 
 --[[
@@ -925,7 +920,7 @@ end
     text = "Hello, World\n您好，世界",
     font = "Arial",
     size = 64,
-    color = cc.c3b(255, 0, 0),
+    color = cc.rgb(255, 0, 0),
     align = cc.TEXT_ALIGNMENT_LEFT,
     valign = cc.VERTICAL_TEXT_ALIGNMENT_TOP,
     dimensions = cc.size(400, 200)
@@ -1011,7 +1006,7 @@ end
   @param function callback
 ]]--
 function display.addImageAsync(imagePath, callback)
-    sharedTextureCache:addImageAsync(imagePath, callback)
+    GG.S_Texture:addImageAsync(imagePath, callback)
 end
 
 --[[
@@ -1029,9 +1024,9 @@ function display.addSpriteFrames(plistFilename, image, handler)
     local asyncHandler = nil
     if async then
         asyncHandler = function()
-            local texture = sharedTextureCache:getTextureForKey(image)
+            local texture = GG.S_Texture:getTextureForKey(image)
             assert(texture, string.format("The texture %s, %s is unavailable.", plistFilename, image))
-            sharedSpriteFrameCache:addSpriteFrames(plistFilename, texture)
+            GG.S_SpriteFrame:addSpriteFrames(plistFilename, texture)
             GG.Magic.Pack(plistFilename, image)
         end
     end
@@ -1039,16 +1034,16 @@ function display.addSpriteFrames(plistFilename, image, handler)
     if display.TEXTURES_PIXEL_FORMAT[image] then
         cc.Texture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
         if async then
-            sharedTextureCache:addImageAsync(image, asyncHandler)
+            GG.S_Texture:addImageAsync(image, asyncHandler)
         else
-            sharedSpriteFrameCache:addSpriteFrames(plistFilename, image)
+            GG.S_SpriteFrame:addSpriteFrames(plistFilename, image)
         end
         cc.Texture2D:setDefaultAlphaPixelFormat(cc.backendPixelFormat.BGRA8888)
     else
         if async then
-            sharedTextureCache:addImageAsync(image, asyncHandler)
+            GG.S_Texture:addImageAsync(image, asyncHandler)
         else
-            sharedSpriteFrameCache:addSpriteFrames(plistFilename, image)
+            GG.S_SpriteFrame:addSpriteFrames(plistFilename, image)
         end
     end
 end
@@ -1060,7 +1055,7 @@ end
   @param string imageName
 ]]--
 function display.removeSpriteFramesWithFile(plistFilename, imageName)
-    sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
+    GG.S_SpriteFrame:removeSpriteFramesFromFile(plistFilename)
     if imageName then
         display.removeSpriteFrameByImageName(imageName)
     end
@@ -1082,7 +1077,7 @@ end
   @param string imageName
 ]]--
 function display.removeSpriteFrameByImageName(imageName)
-    sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
+    GG.S_SpriteFrame:removeSpriteFrameByName(imageName)
     cc.Director:getInstance():getTextureCache():removeTextureForKey(imageName)
 end
 
@@ -1103,7 +1098,7 @@ end
   @return frame cc.SpriteFrame
 ]]--
 function display.newSpriteFrame(frameName)
-    local frame = sharedSpriteFrameCache:getSpriteFrame(frameName)
+    local frame = GG.S_SpriteFrame:getSpriteFrame(frameName)
     if not frame then
         GG.Console.EF("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
     end
@@ -1133,7 +1128,7 @@ function display.newFrames(pattern, begin, length, isReversed)
 
     for index = begin, last, step do
         local frameName = string.format(pattern, index)
-        local frame = sharedSpriteFrameCache:getSpriteFrame(frameName)
+        local frame = GG.S_SpriteFrame:getSpriteFrame(frameName)
         if not frame then
             GG.Console.EF("display.newFrames() - invalid frame, name %s", tostring(frameName))
             return
@@ -1169,7 +1164,7 @@ end
   display.setAnimationCache("Walk", animation)
 ]]--
 function display.setAnimationCache(name, animation)
-    sharedAnimationCache:addAnimation(animation, name)
+    GG.S_Animation:addAnimation(animation, name)
 end
 
 --[[
@@ -1182,7 +1177,7 @@ end
   local animation = display.getAnimationCache("Walk")
 ]]--
 function display.getAnimationCache(name)
-    return sharedAnimationCache:getAnimation(name)
+    return GG.S_Animation:getAnimation(name)
 end
 
 --[[
@@ -1191,7 +1186,7 @@ end
   @param string name
 ]]--
 function display.removeAnimationCache(name)
-    sharedAnimationCache:removeAnimation(name)
+    GG.S_Animation:removeAnimation(name)
 end
 
 --[[
@@ -1199,8 +1194,8 @@ end
   @function removeUnusedSpriteFrames
 ]]--
 function display.removeUnusedSpriteFrames()
-    sharedSpriteFrameCache:removeUnusedSpriteFrames()
-    sharedTextureCache:removeUnusedTextures()
+    GG.S_SpriteFrame:removeUnusedSpriteFrames()
+    GG.S_Texture:removeUnusedTextures()
 end
 
 display.PROGRESS_TIMER_RADIAL = 0

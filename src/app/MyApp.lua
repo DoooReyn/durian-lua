@@ -1,6 +1,3 @@
-require("cocos.init")
-require("framework.init")
-
 local AppBase = require("framework.AppBase")
 local MyApp = GG.Magic.Class("MyApp", AppBase)
 

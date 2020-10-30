@@ -5,7 +5,7 @@
 
   This is Not auto loaded module, use following code to load.
   example:
-  local SimpleTCP = require(cc.PACKAGE_NAME .. ".SimpleTCP")
+  local SimpleTCP = require("framework.SimpleTCP")
 ]]--
 
 local socket = require "socket"
