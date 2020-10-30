@@ -16,16 +16,17 @@ GG.S_Animation = cc.AnimationCache:getInstance()
 GG.S_Application = cc.Application:getInstance()
 GG.S_FileUtils = cc.FileUtils:getInstance()
 
-GG.S_Director:setDisplayStats(GG.Checker.Bool(GG.Env.DEBUG_FPS))
-
 GG.Console.P("# DEBUG = " .. GG.Env.DEBUG)
 GG.Requires("framework.functions", "framework.device", "framework.display", "framework.audio", "framework.network",
     "framework.crypto", "framework.json", "framework.shortcodes", "framework.NodeEx", "framework.WidgetEx")
+
 if GG.Device.IsAndroid then
     GG.Requires("framework.platform.luaj")
 elseif GG.Device.IsIos or GG.Device.IsMac then
     GG.Requires("framework.platform.luaoc")
 end
+
+GG.S_Director:setDisplayStats(GG.Checker.Bool(GG.Env.DEBUG_FPS))
 
 if GG.Env.DEBUG_MEM then
     local function showMemoryUsage()

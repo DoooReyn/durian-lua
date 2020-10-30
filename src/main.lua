@@ -1,5 +1,5 @@
 -- 添加lua搜索路径
-package.path = "src/?.lua;src/durian/?.lua;src/framework/protobuf/?.lua"
+package.path = "src/?.lua;src/framework/protobuf/?.lua"
 
 -- 字符串数组映射为字符串字典
 local function StrsAsKey(t)
@@ -117,10 +117,14 @@ setmetatable(__g, {
     end
 })
 
--- 加载全局模块
+-- 引入全局模块，注意引入顺序
+-- 优先加载cocos
+-- 其次使用durian
+-- 最后是quick
 GG.Requires("cocos.init")
-GG.Requires("magic", "checker", "console", "env", "vec")
+GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.env", "durian.vec")
 GG.Requires("framework.init")
+-- GG.Run()
 
 -- 程序入口
 require("app.MyApp").new():run()

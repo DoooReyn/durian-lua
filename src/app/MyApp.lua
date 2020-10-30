@@ -6,7 +6,7 @@ function MyApp:ctor()
 end
 
 function MyApp:run()
-    cc.FileUtils:getInstance():addSearchPath("res/")
+    GG.S_FileUtils:addSearchPath("res/")
     self:enterScene("MainScene")
 end
 

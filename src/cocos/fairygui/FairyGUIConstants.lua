@@ -3,7 +3,7 @@ if nil == fairygui then
 end
 
 fairygui.UIConfig.onMusicCallback = function(path)
-	GG.Audio.playEffectSync(path)
+	GG.Audio.playEffectAsync(path)
 end
 
 -- entend for GObject

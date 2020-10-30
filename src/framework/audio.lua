@@ -30,7 +30,7 @@ if not (audio._sources[1]) then
     end
     audio.unloadAllFile = function()
     end
-    audio.playBGMSync = function(path, isLoop)
+    audio.playBGMAsync = function(path, isLoop)
     end
     audio.playBGM = function(path, isLoop)
     end
@@ -38,7 +38,7 @@ if not (audio._sources[1]) then
     end
     audio.setBGMVolume = function(vol)
     end
-    audio.playEffectSync = function(path, isLoop)
+    audio.playEffectAsync = function(path, isLoop)
     end
     audio.playEffect = function(path, isLoop)
     end
@@ -126,7 +126,7 @@ function for CSource
 
 --------------- BGM 2D API -------------------
 -- no need preload file
-function audio.playBGMSync(path, isLoop)
+function audio.playBGMAsync(path, isLoop)
     audio.loadFile(path, function(pn, isSuccess)
         if isSuccess then
             audio.playBGM(pn, isLoop)
@@ -165,7 +165,7 @@ end
 
 --------------- Effect 2D API -------------------
 -- no need preload file
-function audio.playEffectSync(path, isLoop)
+function audio.playEffectAsync(path, isLoop)
     audio.loadFile(path, function(pn, isSuccess)
         if isSuccess then
             audio.playEffect(pn, isLoop)

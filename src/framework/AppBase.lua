@@ -1,17 +1,16 @@
 local AppBase = GG.Magic.Class("AppBase")
 
 function AppBase:ctor()
-    local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
     local customListenerBg = cc.EventListenerCustom:create("APP_ENTER_BACKGROUND_EVENT", function()
-        Rapid2D_CAudio.pause() -- stop OpenAL backend thread
+        GG.Audio.pauseAll()
         self:onEnterBackground()
     end)
-    eventDispatcher:addEventListenerWithFixedPriority(customListenerBg, 1)
+    GG.S_EventDipatcher:addEventListenerWithFixedPriority(customListenerBg, 1)
     local customListenerFg = cc.EventListenerCustom:create("APP_ENTER_FOREGROUND_EVENT", function()
-        Rapid2D_CAudio.resume() -- start OpenAL backend thread
+        GG.Audio.resumeAll()
         self:onEnterForeground()
     end)
-    eventDispatcher:addEventListenerWithFixedPriority(customListenerFg, 1)
+    GG.S_EventDipatcher:addEventListenerWithFixedPriority(customListenerFg, 1)
 
     -- set global app
     GG.S_App = self
@@ -21,8 +20,8 @@ function AppBase:run()
 end
 
 function AppBase:exit()
-    cc.Director:getInstance():endToLua()
-    if GG.Device.platform == "windows" or GG.Device.platform == "mac" then
+    GG.S_Director:endToLua()
+    if GG.Device.IsWin or GG.Device.IsMac then
         os.exit()
     end
 end
