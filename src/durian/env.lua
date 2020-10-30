@@ -26,7 +26,22 @@ local Env = {
     CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH",
 
     -- 自定义适配方法（如果有需要自行实现，这里就占个坑）
-    CONFIG_SCREEN_AUTOSCALE_CALLBACK = nil
+    CONFIG_SCREEN_AUTOSCALE_CALLBACK = nil,
+
+    -- 是否使用spine模块
+    USE_SPINE = false,
+
+    -- 是否使用3D模块
+    USE_3D = false,
+
+    -- 是否使用手柄模块
+    USE_CONTROLLER = false,
+
+    -- 是否使用物理模块
+    USE_PHYSICS = false,
+
+    -- 是否使用FairyGUI
+    USE_FAIRY_GUI = false
 }
 
 -- 是否正式环境

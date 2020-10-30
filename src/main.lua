@@ -134,17 +134,15 @@ GG.S_Animation = cc.AnimationCache:getInstance()
 GG.S_Application = cc.Application:getInstance()
 GG.S_FileUtils = cc.FileUtils:getInstance()
 
--- 引入全局模块，注意引入顺序
+-------------------------------------------------------------------------------------
+-- 引入全局模块
 -- 优先加载cocos
 -- 其次使用durian
 -- 最后是quick
 -- 可以视情况自行删减
-GG.Requires("cocos.cocos2d.Cocos2d", "cocos.cocos2d.Cocos2dConstants", "cocos.cocos2d.RendererConstants",
-    "cocos.3d.3dConstants", "cocos.controller.ControllerConstants", "cocos.ui.GuiConstants",
-    "cocos.network.NetworkConstants", "cocos.spine.SpineConstants", "cocos.physics3d.physics3d-constants",
-    "cocos.fairygui.FairyGUIConstants")
-GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.env", "durian.vec")
+-------------------------------------------------------------------------------------
+GG.Requires("durian.env")
+GG.Requires("cocos.init")
+GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.vec")
 GG.Requires("quick.init")
-
--- 程序入口
 GG.Requires("app.MyApp").new():run()
