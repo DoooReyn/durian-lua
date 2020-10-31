@@ -12,9 +12,9 @@ GG.Requires("quick.Functions", "quick.ToLuaEx", "quick.Device", "quick.Display",
     "quick.Crypto", "quick.Json", "quick.Shortcodes", "quick.NodeEx", "quick.WidgetEx")
 
 if GG.Device.IsAndroid then
-    GG.Requires("quick.platform.luaj")
+    GG.Requires("quick.platform.Luaj")
 elseif GG.Device.IsIos or GG.Device.IsMac then
-    GG.Requires("quick.platform.luaoc")
+    GG.Requires("quick.platform.Luaoc")
 end
 
 GG.S_Director:setDisplayStats(GG.Checker.Bool(GG.Env.DEBUG_FPS))
