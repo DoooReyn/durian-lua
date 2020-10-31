@@ -150,9 +150,9 @@ GG.S_UserDefault = cc.UserDefault:getInstance()
 -- 最后是quick
 -- 可以视情况自行删减
 -------------------------------------------------------------------------------------
-GG.Requires("durian.env")
+GG.Requires("durian.Env")
 GG.Requires("cocos.init")
-GG.Requires("durian.magic", "durian.checker", "durian.console", "durian.vec")
+GG.Requires("durian.Magic", "durian.Checker", "durian.Console", "durian.Vec")
 GG.Requires("quick.init")
 
 -------------------------------------------------------------------------------------

@@ -1,25 +1,22 @@
 alcOpenDevice Opened "OpenAL Soft on 扬声器 (Realtek High Definition Audio)"
-[LUA-print] `Requires`: 'durian.env' from file '././src/main.lua' at line[153].
+[LUA-print] `Requires`: 'durian.Env' from file '././src/main.lua' at line[153].
 [LUA-print] `Requires`: 'cocos.cocos2d.Cocos2d' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'cocos.cocos2d.Cocos2dConstants' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'cocos.cocos2d.RendererConstants' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'cocos.ui.GuiConstants' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'cocos.network.NetworkConstants' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'cocos.init' from file '././src/main.lua' at line[154].
-[LUA-print] `Requires`: 'durian.magic' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'durian.checker' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'durian.console' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'durian.vec' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.Magic' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.Checker' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.Console' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'durian.Vec' from file '././src/main.lua' at line[110].
 [LUA-print] ===========================================================
 [LUA-print]               LOAD Cocos2d-Lua-Community FRAMEWORK
 [LUA-print] ===========================================================
 [LUA-print] # DEBUG = 2
-WARNING: File case-sensitive.
-./././src/quick/functions.lua
-./././src/quick/Functions.lua
-
-
-[LUA-print] `Requires`: 'quick.functions' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Functions' from file '././src/main.lua' at line[110].
+can not get file data of src/quick/protobuf/quick/ToLuaEx
+[LUA-print] `Requires`: 'quick.ToLuaEx' not exists.	2
 [LUA-print] #
 [LUA-print] # platform              = windows
 [LUA-print] # model                 = unknown
@@ -49,13 +46,13 @@ WARNING: File case-sensitive.
 [LUA-print] # display.c_bottom             = -320.00
 [LUA-print] #
 [LUA-print] `Requires`: 'quick.Display' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'quick.scheduler' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Scheduler' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.Audio' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'quick.network' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Network' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.Crypto' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'cjson' from file 'src/quick/json.lua' at line[6].
-[LUA-print] `Requires`: 'quick.json' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'quick.shortcodes' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'cjson' from file 'src/quick/Json.lua' at line[6].
+[LUA-print] `Requires`: 'quick.Json' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Shortcodes' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.NodeEx' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.WidgetEx' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.init' from file '././src/main.lua' at line[156].
