@@ -28,7 +28,20 @@ function AppBase:ctor()
     GG.S_EventDipatcher:addEventListenerWithFixedPriority(customListenerFg, 1)
 end
 
+------------------------------------------------------------
+-- 清理资源，慎重使用
+------------------------------------------------------------
+function AppBase:clear()
+    GG.S_Scheduler.unscheduleGlobalAll()
+    GG.S_EventDipatcher:removeAllEventListeners()
+    GG.S_SpriteFrame:removeUnusedSpriteFrames()
+    GG.S_Texture:removeUnusedTextures()
+    cc.AnimationCache:destroyInstance()
+    GG.S_Animation = cc.AnimationCache:getInstance()
+end
+
 function AppBase:run()
+    self:clear()
 end
 
 function AppBase:exit()

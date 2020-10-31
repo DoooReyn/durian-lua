@@ -8,6 +8,7 @@ function MyApp:ctor()
 end
 
 function MyApp:run()
+    self.super.run(self)
     self:enterScene("MainScene")
 end
 

@@ -2,11 +2,13 @@
   Global scheduler. This is Not auto loaded module, use following code to load.
   example:
   local scheduler = GG.Requires("quick.scheduler")
-]]--
+]] --
 
-local scheduler = {}
+local scheduler = {
+    __handles = {}
+}
 
-local sharedScheduler = GG.S_Scheduler
+local sharedScheduler = GG.S_Director:getScheduler()
 
 --[[
   Global frame event scheduler, need manually call scheduler.unscheduleGlobal() to stop scheduler.
@@ -15,7 +17,9 @@ local sharedScheduler = GG.S_Scheduler
   @return handler
 ]]--
 function scheduler.scheduleUpdateGlobal(listener)
-    return sharedScheduler:scheduleScriptFunc(listener, 0, false)
+    local handle = sharedScheduler:scheduleScriptFunc(listener, 0, false)
+    scheduler.__handles:insert(handle)
+    return handle
 end
 
 --[[
@@ -26,7 +30,9 @@ end
   @return handler
 ]]--
 function scheduler.scheduleGlobal(listener, interval)
-    return sharedScheduler:scheduleScriptFunc(listener, interval, false)
+    local handle = sharedScheduler:scheduleScriptFunc(listener, interval, false)
+    table.insert(scheduler.__handles, handle)
+    return handle
 end
 
 --[[
@@ -34,8 +40,24 @@ end
   @function unscheduleGlobal
   @param function handler
 ]]--
-function scheduler.unscheduleGlobal(handle)
+function scheduler.unscheduleGlobal(handle, manually)
     sharedScheduler:unscheduleScriptEntry(handle)
+    if manually then
+        return
+    end
+    table.removebyvalue(scheduler.__handles, handle)
+end
+
+--[[
+  Stop a global scheduler.
+  @function unscheduleGlobal
+  @param function handler
+]]--
+function scheduler.unscheduleGlobalAll()
+    table.walk(scheduler.__handles, function(handle)
+        sharedScheduler:unscheduleScriptEntry(handle)
+    end)
+    scheduler.__handles = {}
 end
 
 --[[
@@ -49,10 +71,10 @@ end
 function scheduler.performWithDelayGlobal(listener, time)
     local handle
     handle = sharedScheduler:scheduleScriptFunc(function()
-        scheduler.unscheduleGlobal(handle)
+        scheduler.unscheduleGlobal(handle, true)
         listener()
     end, time, false)
     return handle
 end
 
-return scheduler
+GG.S_Scheduler = scheduler

@@ -34,7 +34,7 @@ local __sys_defined__ = _strsAsKey {"Framework", "Exists", "Exports", "Deletes",
 
 -- 由用户自定义的全局变量名称集合
 local __self_defined__ = _strsAsKey {"Display", "Device", "Crypto", "Json", "Luaj", "Luaoc", "Audio", "Network",
-                                     "S_App", "S_Director", "S_Texture", "S_Scheduler", "S_EventDipatcher",
+                                     "S_App", "S_Director", "S_Texture", "S_EventDipatcher", "S_Scheduler",
                                      "S_SpriteFrame", "S_Animation", "S_Application", "S_FileUtils", "S_UserDefault"}
 
 -- 区别于quick的全局
@@ -137,7 +137,6 @@ setmetatable(_G, {
 GG.S_Director = cc.Director:getInstance()
 GG.S_Texture = GG.S_Director:getTextureCache()
 GG.S_EventDipatcher = GG.S_Director:getEventDispatcher()
-GG.S_Scheduler = GG.S_Director:getScheduler()
 GG.S_SpriteFrame = cc.SpriteFrameCache:getInstance()
 GG.S_Animation = cc.AnimationCache:getInstance()
 GG.S_Application = cc.Application:getInstance()
@@ -163,8 +162,9 @@ if not GG.S_FileUtils:isDirectoryExist("cache/") then
     GG.S_FileUtils:createDirectory("cache/")
 end
 GG.S_FileUtils:setWritablePath("cache/")
-GG.S_FileUtils:addSearchPath("res/")
 GG.S_FileUtils:addSearchPath("cache/")
+GG.S_FileUtils:addSearchPath("cache/res/")
+GG.S_FileUtils:addSearchPath("res/")
 
 -------------------------------------------------------------------------------------
 -- 进入游戏

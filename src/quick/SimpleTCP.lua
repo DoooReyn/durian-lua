@@ -11,7 +11,7 @@
 local socket = GG.Requires "socket"
 if not socket then return end
 
-local scheduler = GG.Requires("quick.scheduler")
+local scheduler = GG.S_Scheduler
 local SimpleTCP = GG.Magic.Class("SimpleTCP")
 
 local string = string
