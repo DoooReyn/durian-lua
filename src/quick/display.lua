@@ -32,20 +32,20 @@
     display.COLOR_GRAY        , cc.rgb(166, 166, 166)
 ]] --
 
-local display = {}
+local Display = {}
 
 -- check device screen size
 local glview = GG.S_Director:getOpenGLView()
 assert(glview ~= nil, "Error: GLView not inited!")
 
 local size = glview:getFrameSize()
-display.sizeInPixels = {
+Display.sizeInPixels = {
     width = size.width,
     height = size.height
 }
 
-local w = display.sizeInPixels.width
-local h = display.sizeInPixels.height
+local w = Display.sizeInPixels.width
+local h = Display.sizeInPixels.height
 
 if GG.Env.CONFIG_SCREEN_WIDTH == nil or GG.Env.CONFIG_SCREEN_HEIGHT == nil then
     GG.Env.CONFIG_SCREEN_WIDTH = w
@@ -113,82 +113,82 @@ else
 end
 
 local winSize = GG.S_Director:getWinSize()
-display.screenScale = 2.0
-display.contentScaleFactor = scale
-display.size = {
+Display.screenScale = 2.0
+Display.contentScaleFactor = scale
+Display.size = {
     width = winSize.width,
     height = winSize.height
 }
-display.width = display.size.width
-display.height = display.size.height
-display.cx = display.width / 2
-display.cy = display.height / 2
-display.c_left = -display.width / 2
-display.c_right = display.width / 2
-display.c_top = display.height / 2
-display.c_bottom = -display.height / 2
-display.left = 0
-display.right = display.width
-display.top = display.height
-display.bottom = 0
-display.widthInPixels = display.sizeInPixels.width
-display.heightInPixels = display.sizeInPixels.height
+Display.width = Display.size.width
+Display.height = Display.size.height
+Display.cx = Display.width / 2
+Display.cy = Display.height / 2
+Display.c_left = -Display.width / 2
+Display.c_right = Display.width / 2
+Display.c_top = Display.height / 2
+Display.c_bottom = -Display.height / 2
+Display.left = 0
+Display.right = Display.width
+Display.top = Display.height
+Display.bottom = 0
+Display.widthInPixels = Display.sizeInPixels.width
+Display.heightInPixels = Display.sizeInPixels.height
 
 GG.Console.PF("# CONFIG_SCREEN_AUTOSCALE      = %s", GG.Env.CONFIG_SCREEN_AUTOSCALE)
 GG.Console.PF("# CONFIG_SCREEN_WIDTH          = %0.2f", GG.Env.CONFIG_SCREEN_WIDTH)
 GG.Console.PF("# CONFIG_SCREEN_HEIGHT         = %0.2f", GG.Env.CONFIG_SCREEN_HEIGHT)
-GG.Console.PF("# display.widthInPixels        = %0.2f", display.widthInPixels)
-GG.Console.PF("# display.heightInPixels       = %0.2f", display.heightInPixels)
-GG.Console.PF("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor)
-GG.Console.PF("# display.width                = %0.2f", display.width)
-GG.Console.PF("# display.height               = %0.2f", display.height)
-GG.Console.PF("# display.cx                   = %0.2f", display.cx)
-GG.Console.PF("# display.cy                   = %0.2f", display.cy)
-GG.Console.PF("# display.left                 = %0.2f", display.left)
-GG.Console.PF("# display.right                = %0.2f", display.right)
-GG.Console.PF("# display.top                  = %0.2f", display.top)
-GG.Console.PF("# display.bottom               = %0.2f", display.bottom)
-GG.Console.PF("# display.c_left               = %0.2f", display.c_left)
-GG.Console.PF("# display.c_right              = %0.2f", display.c_right)
-GG.Console.PF("# display.c_top                = %0.2f", display.c_top)
-GG.Console.PF("# display.c_bottom             = %0.2f", display.c_bottom)
+GG.Console.PF("# display.widthInPixels        = %0.2f", Display.widthInPixels)
+GG.Console.PF("# display.heightInPixels       = %0.2f", Display.heightInPixels)
+GG.Console.PF("# display.contentScaleFactor   = %0.2f", Display.contentScaleFactor)
+GG.Console.PF("# display.width                = %0.2f", Display.width)
+GG.Console.PF("# display.height               = %0.2f", Display.height)
+GG.Console.PF("# display.cx                   = %0.2f", Display.cx)
+GG.Console.PF("# display.cy                   = %0.2f", Display.cy)
+GG.Console.PF("# display.left                 = %0.2f", Display.left)
+GG.Console.PF("# display.right                = %0.2f", Display.right)
+GG.Console.PF("# display.top                  = %0.2f", Display.top)
+GG.Console.PF("# display.bottom               = %0.2f", Display.bottom)
+GG.Console.PF("# display.c_left               = %0.2f", Display.c_left)
+GG.Console.PF("# display.c_right              = %0.2f", Display.c_right)
+GG.Console.PF("# display.c_top                = %0.2f", Display.c_top)
+GG.Console.PF("# display.c_bottom             = %0.2f", Display.c_bottom)
 GG.Console.P("#")
-display.COLOR_WHITE = cc.rgb(255, 255, 255)
-display.COLOR_YELLOW = cc.rgb(255, 255, 0)
-display.COLOR_GREEN = cc.rgb(0, 255, 0)
-display.COLOR_BLUE = cc.rgb(0, 0, 255)
-display.COLOR_RED = cc.rgb(255, 0, 0)
-display.COLOR_MAGENTA = cc.rgb(255, 0, 255)
-display.COLOR_BLACK = cc.rgb(0, 0, 0)
-display.COLOR_ORANGE = cc.rgb(255, 127, 0)
-display.COLOR_GRAY = cc.rgb(166, 166, 166)
+Display.COLOR_WHITE = cc.rgb(255, 255, 255)
+Display.COLOR_YELLOW = cc.rgb(255, 255, 0)
+Display.COLOR_GREEN = cc.rgb(0, 255, 0)
+Display.COLOR_BLUE = cc.rgb(0, 0, 255)
+Display.COLOR_RED = cc.rgb(255, 0, 0)
+Display.COLOR_MAGENTA = cc.rgb(255, 0, 255)
+Display.COLOR_BLACK = cc.rgb(0, 0, 0)
+Display.COLOR_ORANGE = cc.rgb(255, 127, 0)
+Display.COLOR_GRAY = cc.rgb(166, 166, 166)
 
-display.AUTO_SIZE = 0
-display.FIXED_SIZE = 1
-display.LEFT_TO_RIGHT = 0
-display.RIGHT_TO_LEFT = 1
-display.TOP_TO_BOTTOM = 2
-display.BOTTOM_TO_TOP = 3
+Display.AUTO_SIZE = 0
+Display.FIXED_SIZE = 1
+Display.LEFT_TO_RIGHT = 0
+Display.RIGHT_TO_LEFT = 1
+Display.TOP_TO_BOTTOM = 2
+Display.BOTTOM_TO_TOP = 3
 
-display.CENTER = 1
-display.LEFT_TOP = 2
-display.TOP_LEFT = 2
-display.CENTER_TOP = 3
-display.TOP_CENTER = 3
-display.RIGHT_TOP = 4
-display.TOP_RIGHT = 4
-display.CENTER_LEFT = 5
-display.LEFT_CENTER = 5
-display.CENTER_RIGHT = 6
-display.RIGHT_CENTER = 6
-display.BOTTOM_LEFT = 7
-display.LEFT_BOTTOM = 7
-display.BOTTOM_RIGHT = 8
-display.RIGHT_BOTTOM = 8
-display.BOTTOM_CENTER = 9
-display.CENTER_BOTTOM = 9
+Display.CENTER = 1
+Display.LEFT_TOP = 2
+Display.TOP_LEFT = 2
+Display.CENTER_TOP = 3
+Display.TOP_CENTER = 3
+Display.RIGHT_TOP = 4
+Display.TOP_RIGHT = 4
+Display.CENTER_LEFT = 5
+Display.LEFT_CENTER = 5
+Display.CENTER_RIGHT = 6
+Display.RIGHT_CENTER = 6
+Display.BOTTOM_LEFT = 7
+Display.LEFT_BOTTOM = 7
+Display.BOTTOM_RIGHT = 8
+Display.RIGHT_BOTTOM = 8
+Display.BOTTOM_CENTER = 9
+Display.CENTER_BOTTOM = 9
 
-display.ANCHOR_POINTS = {cc.p(0.5, 0.5), -- CENTER
+Display.ANCHOR_POINTS = {cc.p(0.5, 0.5), -- CENTER
 cc.p(0, 1), -- TOP_LEFT
 cc.p(0.5, 1), -- TOP_CENTER
 cc.p(1, 1), -- TOP_RIGHT
@@ -199,7 +199,7 @@ cc.p(1, 0), -- BOTTOM_RIGHT
 cc.p(0.5, 0) -- BOTTOM_CENTER
 }
 
-display.SCENE_TRANSITIONS = {
+Display.SCENE_TRANSITIONS = {
     CROSSFADE = {cc.TransitionCrossFade, 2},
     FADE = {cc.TransitionFade, 3, cc.rgb(0, 0, 0)},
     FADEBL = {cc.TransitionFadeBL, 2},
@@ -229,16 +229,16 @@ display.SCENE_TRANSITIONS = {
     ZOOMFLIPY = {cc.TransitionZoomFlipY, 3, cc.TRANSITION_ORIENTATION_UP_OVER}
 }
 
-display.TEXTURES_PIXEL_FORMAT = {}
-display.DEFAULT_TTF_FONT = "Arial"
-display.DEFAULT_TTF_FONT_SIZE = 24
+Display.TEXTURES_PIXEL_FORMAT = {}
+Display.DEFAULT_TTF_FONT = "Arial"
+Display.DEFAULT_TTF_FONT_SIZE = 24
 
 --[[
   Create a new scene, auto enable Node event(true)
   @function newScene
   @param string name, scene name
 ]]--
-function display.newScene(name)
+function Display.newScene(name)
     local scene = cc.Scene:create()
     scene.name = name or "<unknown-scene>"
     scene:setNodeEventEnabled(true)
@@ -250,7 +250,7 @@ end
   @function newPhysicsScene
   @param string name, scene name
 ]]--
-function display.newPhysicsScene(name)
+function Display.newPhysicsScene(name)
     local scene = cc.Scene:createWithPhysics()
     scene.name = name or "<unknown-scene>"
     scene:setNodeEventEnabled(true)
@@ -308,19 +308,19 @@ end
   splitRows      , split into rows to enter new scene, like a shuttered window.
   turnOffTiles   , split into tiles, replace by new scene gradually.
 ]]--
-function display.wrapSceneWithTransition(scene, transitionType, time, more)
+function Display.wrapSceneWithTransition(scene, transitionType, time, more)
     local key = string.upper(tostring(transitionType))
     if string.sub(key, 1, 12) == "CCTRANSITION" then
         key = string.sub(key, 13)
     end
 
     if key == "RANDOM" then
-        local keys = table.keys(display.SCENE_TRANSITIONS)
+        local keys = table.keys(Display.SCENE_TRANSITIONS)
         key = keys[math.random(1, #keys)]
     end
 
-    if display.SCENE_TRANSITIONS[key] then
-        local cls, count, default = unpack(display.SCENE_TRANSITIONS[key])
+    if Display.SCENE_TRANSITIONS[key] then
+        local cls, count, default = unpack(Display.SCENE_TRANSITIONS[key])
         time = time or 0.2
 
         if count == 3 then
@@ -345,10 +345,10 @@ end
   example:
   display.replaceScene(nextScene, "fade", 0.5, cc.rgb(255, 0, 0))
 ]]--
-function display.replaceScene(newScene, transitionType, time, more)
+function Display.replaceScene(newScene, transitionType, time, more)
     if GG.S_Director:getRunningScene() then
         if transitionType then
-            newScene = display.wrapSceneWithTransition(newScene, transitionType, time, more)
+            newScene = Display.wrapSceneWithTransition(newScene, transitionType, time, more)
         end
         GG.S_Director:replaceScene(newScene)
     else
@@ -361,7 +361,7 @@ end
   @function getRunningScene
   @return Scene ret, cc.Scene
 ]]--
-function display.getRunningScene()
+function Display.getRunningScene()
     return GG.S_Director:getRunningScene()
 end
 
@@ -369,7 +369,7 @@ end
   Pause Game.
   @function pause
 ]]--
-function display.pause()
+function Display.pause()
     GG.S_Director:pause()
 end
 
@@ -377,7 +377,7 @@ end
   Resume Game.
   @function resume
 ]]--
-function display.resume()
+function Display.resume()
     GG.S_Director:resume()
 end
 
@@ -386,9 +386,9 @@ end
   @function newLayer
   @return Node ret, cc.Node
 ]]--
-function display.newLayer()
+function Display.newLayer()
     local node = cc.Node:create()
-    node:setContentSize(cc.size(display.width, display.height))
+    node:setContentSize(cc.size(Display.width, Display.height))
     return node
 end
 
@@ -397,7 +397,7 @@ end
   @function newColorLayer
   @return LayerColor ret, cc.LayerColor
 ]]--
-function display.newColorLayer(color)
+function Display.newColorLayer(color)
     return cc.LayerColor:create(color)
 end
 
@@ -406,7 +406,7 @@ end
   @function newNode
   @return Node ret, cc.Node
 ]]--
-function display.newNode()
+function Display.newNode()
     return cc.Node:create()
 end
 
@@ -428,7 +428,7 @@ end
   layer:addTo(clipnode)
   clipnode:addTo(scene)
 ]]--
-function display.newClippingRectangleNode(rect)
+function Display.newClippingRectangleNode(rect)
     return cc.ClippingRegionNode:create(rect)
 end
 
@@ -447,7 +447,7 @@ end
   local frame = display.newFrame("frame0002.png") -- new cc.SpriteFrame then create sprite
   local sprite3 = display.newSprite(frame)
 ]]--
-function display.newSprite(filename, x, y, params)
+function Display.newSprite(filename, x, y, params)
     local spriteClass = nil
     local size = nil
 
@@ -469,7 +469,7 @@ function display.newSprite(filename, x, y, params)
         sprite = spriteClass:create()
     elseif t == "string" then
         if string.byte(filename) == 35 then -- first char is #
-            local frame = display.newSpriteFrame(string.sub(filename, 2))
+            local frame = Display.newSpriteFrame(string.sub(filename, 2))
             if frame then
                 if params and params.capInsets then
                     sprite = spriteClass:createWithSpriteFrame(frame, params.capInsets)
@@ -478,8 +478,8 @@ function display.newSprite(filename, x, y, params)
                 end
             end
         else
-            if display.TEXTURES_PIXEL_FORMAT[filename] then
-                cc.Texture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+            if Display.TEXTURES_PIXEL_FORMAT[filename] then
+                cc.Texture2D:setDefaultAlphaPixelFormat(Display.TEXTURES_PIXEL_FORMAT[filename])
                 sprite = spriteClass:create(filename)
                 cc.Texture2D:setDefaultAlphaPixelFormat(cc.TEXTURE2D_PIXEL_FORMAT_RGBA8888)
             else
@@ -527,8 +527,8 @@ end
   example:
   local sprite = display.newScale9Sprite("bg.png", 0, 0, cc.size(200, 100), cc.rect(10, 10, 20, 20))
 ]]--
-function display.newScale9Sprite(filename, x, y, size, capInsets)
-    return display.newSprite(filename, x, y, {
+function Display.newScale9Sprite(filename, x, y, size, capInsets)
+    return Display.newSprite(filename, x, y, {
         class = ccui.Scale9Sprite,
         size = size,
         capInsets = capInsets
@@ -545,9 +545,9 @@ end
   example:
   local sprite = display.newTilesSprite("bg.png", cc.rect(10, 10, 20, 20))
 ]]--
-function display.newTilesSprite(filename, rect)
+function Display.newTilesSprite(filename, rect)
     if not rect then
-        rect = cc.rect(0, 0, display.width, display.height)
+        rect = cc.rect(0, 0, Display.width, Display.height)
     end
     local sprite = cc.Sprite:create(filename, rect)
     if not sprite then
@@ -558,7 +558,7 @@ function display.newTilesSprite(filename, rect)
     sprite:getTexture():setTexParameters(cc.backendSamplerFilter.LINEAR, cc.backendSamplerFilter.LINEAR,
         cc.backendSamplerAddressMode.REPEAT, cc.backendSamplerAddressMode.REPEAT)
 
-    display.align(sprite, display.LEFT_BOTTOM, 0, 0)
+    Display.align(sprite, Display.LEFT_BOTTOM, 0, 0)
 
     return sprite
 end
@@ -573,11 +573,11 @@ end
   @param integer vPadding, Vertical padding.
   @return SpriteBatchNode ret, cc.SpriteBatchNode
 ]]--
-function display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding)
-    size = size or cc.size(display.width, display.height)
+function Display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding)
+    size = size or cc.size(Display.width, Display.height)
     hPadding = hPadding or 0
     vPadding = vPadding or 0
-    local __sprite = display.newSprite(filename)
+    local __sprite = Display.newSprite(filename)
     local __sliceSize = __sprite:getContentSize()
     __sliceSize.width = __sliceSize.width - hPadding
     __sliceSize.height = __sliceSize.height - vPadding
@@ -585,13 +585,13 @@ function display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding
     local __yRepeat = math.ceil(size.height / __sliceSize.height)
     -- How maney sprites we need to fill in tiled node?
     local __capacity = __xRepeat * __yRepeat
-    local __batch = display.newBatchNode(plistFile, __capacity)
+    local __batch = Display.newBatchNode(plistFile, __capacity)
     local __newSize = cc.size(0, 0)
 
     for y = 0, __yRepeat - 1 do
         for x = 0, __xRepeat - 1 do
             __newSize.width = __newSize.width + __sliceSize.width
-            __sprite = display.newSprite(filename):align(display.LEFT_BOTTOM, x * __sliceSize.width,
+            __sprite = Display.newSprite(filename):align(Display.LEFT_BOTTOM, x * __sliceSize.width,
                            y * __sliceSize.height):addTo(__batch)
         end
         __newSize.height = __newSize.height + __sliceSize.height
@@ -606,7 +606,7 @@ end
   @function newDrawNode
   @return DrawNode ret, cc.DrawNode
 ]]--
-function display.newDrawNode()
+function Display.newDrawNode()
     return cc.DrawNode:create()
 end
 
@@ -620,8 +620,8 @@ end
   example:
   local circle = display.newSolidCircle(10, {x = 150, y = 150, color = cc.c4f(1, 1, 1, 1)})
 ]]--
-function display.newSolidCircle(radius, params)
-    local circle = display.newDrawNode()
+function Display.newSolidCircle(radius, params)
+    local circle = Display.newDrawNode()
     circle:drawSolidCircle(cc.p(params.x or 0, params.y or 0), radius or 0, params.angle or 0, params.segments or 50,
         params.scaleX or 1.0, params.scaleY or 1.0, params.color or cc.c4f(0, 0, 0, 1))
     return circle
@@ -643,7 +643,7 @@ end
     borderWidth = 2
   })
 ]]--
-function display.newCircle(radius, params)
+function Display.newCircle(radius, params)
     params = GG.Checker.Table(params)
 
     local function makeVertexs(radius)
@@ -671,7 +671,7 @@ function display.newCircle(radius, params)
     end
 
     local points = makeVertexs(radius)
-    local circle = display.newPolygon(points, params)
+    local circle = Display.newPolygon(points, params)
     if circle then
         circle.radius = radius
         circle.params = params
@@ -679,14 +679,14 @@ function display.newCircle(radius, params)
         function circle:setRadius(radius)
             self:clear()
             local points = makeVertexs(radius)
-            display.newPolygon(points, params, self)
+            Display.newPolygon(points, params, self)
         end
 
         function circle:setLineColor(color)
             self:clear()
             local points = makeVertexs(radius)
             params.borderColor = color
-            display.newPolygon(points, params, self)
+            Display.newPolygon(points, params, self)
         end
     end
     return circle
@@ -706,7 +706,7 @@ end
 	borderWidth = 5
   })
 ]]--
-function display.newRect(rect, params)
+function Display.newRect(rect, params)
     local x, y, width, height = 0, 0
     x = rect.x or 0
     y = rect.y or 0
@@ -714,7 +714,7 @@ function display.newRect(rect, params)
     width = rect.width
 
     local points = {{x, y}, {x + width, y}, {x + width, y + height}, {x, y + height}}
-    return display.newPolygon(points, params)
+    return Display.newPolygon(points, params)
 end
 
 --[[
@@ -732,7 +732,7 @@ end
     borderWidth = 1
   })
 ]]--
-function display.newRoundedRect(size, radius, params)
+function Display.newRoundedRect(size, radius, params)
     local radius = radius or 1
     local segments = math.ceil(radius)
     local radianPerSegment = math.pi * 0.5 / segments
@@ -801,7 +801,7 @@ end
     borderWidth = 1
   })
 ]]--
-function display.newLine(points, params)
+function Display.newLine(points, params)
     local radius
     local borderColor
     local scale
@@ -843,7 +843,7 @@ end
     borderColor = cc.c4f(1.0, 0.0, 0.0, 1.0),
   })
 ]]--
-function display.newPolygon(points, params, drawNode)
+function Display.newPolygon(points, params, drawNode)
     params = GG.Checker.Table(params)
     local scale = GG.Checker.Number(params.scale or 1.0)
     local borderWidth = GG.Checker.Number(params.borderWidth or 0.5)
@@ -875,7 +875,7 @@ end
     font = "UIFont.fnt",
   })
 ]]--
-function display.newBMFontLabel(params)
+function Display.newBMFontLabel(params)
     assert(type(params) == "table", "display.newBMFontLabel() invalid params")
 
     local text = tostring(params.text)
@@ -926,13 +926,13 @@ end
     dimensions = cc.size(400, 200)
   })
 ]]--
-function display.newTTFLabel(params)
+function Display.newTTFLabel(params)
     assert(type(params) == "table", "display.newTTFLabel() invalid params")
 
     local text = tostring(params.text)
-    local font = params.font or display.DEFAULT_TTF_FONT
-    local size = params.size or display.DEFAULT_TTF_FONT_SIZE
-    local color = params.color or display.COLOR_WHITE
+    local font = params.font or Display.DEFAULT_TTF_FONT
+    local size = params.size or Display.DEFAULT_TTF_FONT_SIZE
+    local color = params.color or Display.COLOR_WHITE
     local textAlign = params.align or cc.TEXT_ALIGNMENT_LEFT
     local textValign = params.valign or cc.VERTICAL_TEXT_ALIGNMENT_TOP
     local x, y = params.x, params.y
@@ -992,8 +992,8 @@ end
   example:
   display.align(node, display.LEFT_TOP, 0, 0)
 ]]--
-function display.align(target, anchorPoint, x, y)
-    target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
+function Display.align(target, anchorPoint, x, y)
+    target:setAnchorPoint(Display.ANCHOR_POINTS[anchorPoint])
     if x and y then
         target:setPosition(x, y)
     end
@@ -1005,7 +1005,7 @@ end
   @param string imagePath
   @param function callback
 ]]--
-function display.addImageAsync(imagePath, callback)
+function Display.addImageAsync(imagePath, callback)
     GG.S_Texture:addImageAsync(imagePath, callback)
 end
 
@@ -1019,7 +1019,7 @@ end
   example:
   display.addSpriteFrames("Sprites.plist", "Sprites.png")
 ]]--
-function display.addSpriteFrames(plistFilename, image, handler)
+function Display.addSpriteFrames(plistFilename, image, handler)
     local async = type(handler) == "function"
     local asyncHandler = nil
     if async then
@@ -1031,8 +1031,8 @@ function display.addSpriteFrames(plistFilename, image, handler)
         end
     end
 
-    if display.TEXTURES_PIXEL_FORMAT[image] then
-        cc.Texture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
+    if Display.TEXTURES_PIXEL_FORMAT[image] then
+        cc.Texture2D:setDefaultAlphaPixelFormat(Display.TEXTURES_PIXEL_FORMAT[image])
         if async then
             GG.S_Texture:addImageAsync(image, asyncHandler)
         else
@@ -1054,10 +1054,10 @@ end
   @param string plistFilename
   @param string imageName
 ]]--
-function display.removeSpriteFramesWithFile(plistFilename, imageName)
+function Display.removeSpriteFramesWithFile(plistFilename, imageName)
     GG.S_SpriteFrame:removeSpriteFramesFromFile(plistFilename)
     if imageName then
-        display.removeSpriteFrameByImageName(imageName)
+        Display.removeSpriteFrameByImageName(imageName)
     end
 end
 
@@ -1067,8 +1067,8 @@ end
   @param string filename
   @param integer format (cc.backendPixelFormat)
 ]]--
-function display.setTexturePixelFormat(filename, format)
-    display.TEXTURES_PIXEL_FORMAT[filename] = format
+function Display.setTexturePixelFormat(filename, format)
+    Display.TEXTURES_PIXEL_FORMAT[filename] = format
 end
 
 --[[
@@ -1076,7 +1076,7 @@ end
   @function removeSpriteFrameByImageName
   @param string imageName
 ]]--
-function display.removeSpriteFrameByImageName(imageName)
+function Display.removeSpriteFrameByImageName(imageName)
     GG.S_SpriteFrame:removeSpriteFrameByName(imageName)
     GG.S_Texture:removeTextureForKey(imageName)
 end
@@ -1087,7 +1087,7 @@ end
   @param string image
   @param integer capacity
 ]]--
-function display.newBatchNode(image, capacity)
+function Display.newBatchNode(image, capacity)
     return cc.SpriteBatchNode:create(image, capacity or 100)
 end
 
@@ -1097,7 +1097,7 @@ end
   @param string frameName
   @return frame cc.SpriteFrame
 ]]--
-function display.newSpriteFrame(frameName)
+function Display.newSpriteFrame(frameName)
     local frame = GG.S_SpriteFrame:getSpriteFrame(frameName)
     if not frame then
         GG.Console.EF("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
@@ -1117,7 +1117,7 @@ end
   example:
   local frames = display.newFrames("Walk%04d.png", 1, 8)
 ]]--
-function display.newFrames(pattern, begin, length, isReversed)
+function Display.newFrames(pattern, begin, length, isReversed)
     local frames = {}
     local step = 1
     local last = begin + length - 1
@@ -1149,7 +1149,7 @@ end
   example:
   local animation = display.newAnimation(frames, 0.5 / 8)
 ]]--
-function display.newAnimation(frames, time)
+function Display.newAnimation(frames, time)
     time = time or (1.0 / #frames)
     return cc.Animation:createWithSpriteFrames(frames, time)
 end
@@ -1163,7 +1163,7 @@ end
   example:
   display.setAnimationCache("Walk", animation)
 ]]--
-function display.setAnimationCache(name, animation)
+function Display.setAnimationCache(name, animation)
     GG.S_Animation:addAnimation(animation, name)
 end
 
@@ -1176,7 +1176,7 @@ end
   example:
   local animation = display.getAnimationCache("Walk")
 ]]--
-function display.getAnimationCache(name)
+function Display.getAnimationCache(name)
     return GG.S_Animation:getAnimation(name)
 end
 
@@ -1185,7 +1185,7 @@ end
   @function removeAnimationCache
   @param string name
 ]]--
-function display.removeAnimationCache(name)
+function Display.removeAnimationCache(name)
     GG.S_Animation:removeAnimation(name)
 end
 
@@ -1193,13 +1193,13 @@ end
   Remove Unused Sprite Frames.
   @function removeUnusedSpriteFrames
 ]]--
-function display.removeUnusedSpriteFrames()
+function Display.removeUnusedSpriteFrames()
     GG.S_SpriteFrame:removeUnusedSpriteFrames()
     GG.S_Texture:removeUnusedTextures()
 end
 
-display.PROGRESS_TIMER_RADIAL = 0
-display.PROGRESS_TIMER_BAR = 1
+Display.PROGRESS_TIMER_RADIAL = 0
+Display.PROGRESS_TIMER_BAR = 1
 
 --[[
   Create progress timer node.
@@ -1207,9 +1207,9 @@ display.PROGRESS_TIMER_BAR = 1
   @param mixed image
   @param number progressType
 ]]--
-function display.newProgressTimer(image, progresssType)
+function Display.newProgressTimer(image, progresssType)
     if type(image) == "string" then
-        image = display.newSprite(image)
+        image = Display.newSprite(image)
     end
 
     local progress = cc.ProgressTimer:create(image)
@@ -1228,8 +1228,8 @@ end
     GG.Console.P(bSuc, filePath)
   end, "screen.png")
 ]]--
-function display.captureScreen(callback, fileName)
+function Display.captureScreen(callback, fileName)
     cc.utils:captureScreen(callback, fileName)
 end
 
-GG.Display = display
+GG.Display = Display

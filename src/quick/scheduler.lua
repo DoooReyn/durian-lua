@@ -4,7 +4,7 @@
   local scheduler = GG.Requires("quick.scheduler")
 ]] --
 
-local scheduler = {
+local Scheduler = {
     __handles = {}
 }
 
@@ -16,9 +16,9 @@ local sharedScheduler = GG.S_Director:getScheduler()
   @param function listener
   @return handler
 ]]--
-function scheduler.scheduleUpdateGlobal(listener)
+function Scheduler.scheduleUpdateGlobal(listener)
     local handle = sharedScheduler:scheduleScriptFunc(listener, 0, false)
-    scheduler.__handles:insert(handle)
+    Scheduler.__handles:insert(handle)
     return handle
 end
 
@@ -29,9 +29,9 @@ end
   @param integer interval
   @return handler
 ]]--
-function scheduler.scheduleGlobal(listener, interval)
+function Scheduler.scheduleGlobal(listener, interval)
     local handle = sharedScheduler:scheduleScriptFunc(listener, interval, false)
-    table.insert(scheduler.__handles, handle)
+    table.insert(Scheduler.__handles, handle)
     return handle
 end
 
@@ -40,12 +40,12 @@ end
   @function unscheduleGlobal
   @param function handler
 ]]--
-function scheduler.unscheduleGlobal(handle, manually)
+function Scheduler.unscheduleGlobal(handle, manually)
     sharedScheduler:unscheduleScriptEntry(handle)
     if manually then
         return
     end
-    table.removebyvalue(scheduler.__handles, handle)
+    table.removebyvalue(Scheduler.__handles, handle)
 end
 
 --[[
@@ -53,11 +53,11 @@ end
   @function unscheduleGlobal
   @param function handler
 ]]--
-function scheduler.unscheduleGlobalAll()
-    table.walk(scheduler.__handles, function(handle)
+function Scheduler.unscheduleGlobalAll()
+    table.walk(Scheduler.__handles, function(handle)
         sharedScheduler:unscheduleScriptEntry(handle)
     end)
-    scheduler.__handles = {}
+    Scheduler.__handles = {}
 end
 
 --[[
@@ -68,13 +68,13 @@ end
   @param integer interval
   @return handler
 ]]--
-function scheduler.performWithDelayGlobal(listener, time)
+function Scheduler.performWithDelayGlobal(listener, time)
     local handle
     handle = sharedScheduler:scheduleScriptFunc(function()
-        scheduler.unscheduleGlobal(handle, true)
+        Scheduler.unscheduleGlobal(handle, true)
         listener()
     end, time, false)
     return handle
 end
 
-GG.S_Scheduler = scheduler
+GG.S_Scheduler = Scheduler

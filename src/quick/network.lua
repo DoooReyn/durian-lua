@@ -2,14 +2,14 @@
   network status and HTTP request
 ]] --
 
-local network = {}
+local Network = {}
 
 --[[
   Check if local WIFI is available.
   @function isLocalWiFiAvailable
   @return boolean
 ]]--
-function network.isLocalWiFiAvailable()
+function Network.isLocalWiFiAvailable()
     return cc.Network:isLocalWiFiAvailable()
 end
 
@@ -18,7 +18,7 @@ end
   @function isInternetConnectionAvailable
   @return boolean
 ]]--
-function network.isInternetConnectionAvailable()
+function Network.isInternetConnectionAvailable()
     return cc.Network:isInternetConnectionAvailable()
 end
 
@@ -30,7 +30,7 @@ end
   example:
   network.isHostNameReachable("www.baidu.com")
 ]]--
-function network.isHostNameReachable(hostname)
+function Network.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
         GG.Console.EF("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
         return false
@@ -46,7 +46,7 @@ end
     cc.kCCNetworkStatusReachableViaWiFi
     cc.kCCNetworkStatusReachableViaWWAN
 ]]--
-function network.getInternetConnectionStatus()
+function Network.getInternetConnectionStatus()
     return cc.Network:getInternetConnectionStatus()
 end
 
@@ -85,7 +85,7 @@ end
   local request = network.createHTTPRequest(onRequestCallback, "https://baidu.com", "GET")
   request:start()
 ]]--
-function network.createHTTPRequest(callback, url, method)
+function Network.createHTTPRequest(callback, url, method)
     if not method then
         method = "GET"
     end
@@ -131,7 +131,7 @@ end
   local request = network.createHTTPDownload(onRequestCallback, "https://baidu.com", savePath)
   request:start()
 ]]--
-function network.createHTTPDownload(callback, url, savePath)
+function Network.createHTTPDownload(callback, url, savePath)
     return cc.HTTPRequest:createForDownload(callback, url, savePath)
 end
 
@@ -168,9 +168,9 @@ end
 	}
   })
 ]]--
-function network.uploadFile(callback, url, datas)
+function Network.uploadFile(callback, url, datas)
     assert(datas or datas.fileFieldName or datas.filePath, "Need file datas!")
-    local request = network.createHTTPRequest(callback, url, "POST")
+    local request = Network.createHTTPRequest(callback, url, "POST")
     local fileFieldName = datas.fileFieldName
     local filePath = datas.filePath
     local contentType = datas.contentType
@@ -203,7 +203,7 @@ end
   @param table cookie
   @return string
 ]]--
-function network.makeCookieString(cookie)
+function Network.makeCookieString(cookie)
     local arr = {}
     for name, value in pairs(cookie) do
         if type(value) == "table" then
@@ -224,7 +224,7 @@ end
   @param string cookieString
   @return table
 ]]--
-function network.parseCookie(cookieString)
+function Network.parseCookie(cookieString)
     local cookie = {}
     local arr = string.split(cookieString, "\n")
     for _, item in ipairs(arr) do
@@ -256,4 +256,4 @@ function network.parseCookie(cookieString)
     return cookie
 end
 
-GG.Network = network
+GG.Network = Network

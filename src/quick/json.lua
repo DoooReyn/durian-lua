@@ -2,9 +2,9 @@
   JSON encode and decode
 ]] --
 
-local json = {}
+local Json = {}
 local cjson = GG.Requires("cjson")
-json.null = cjson.null
+Json.null = cjson.null
 
 --[[
   Table => JSON string.
@@ -15,7 +15,7 @@ json.null = cjson.null
   example:
   GG.Console.P(json.encode({[3]=2,[5]=3})) -- logout: [null,null,2,null,3]
 ]]--
-function json.encode(var)
+function Json.encode(var)
     local status, result = pcall(cjson.encode, var)
     if status then
         return result
@@ -38,7 +38,7 @@ end
   -     5 = 3
   - }
 ]]--
-function json.decode(text)
+function Json.decode(text)
     local status, result = pcall(cjson.decode, text)
     if status then
         return result
@@ -48,4 +48,4 @@ function json.decode(text)
     end
 end
 
-GG.Json = json
+GG.Json = Json

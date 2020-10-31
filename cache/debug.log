@@ -14,16 +14,21 @@ alcOpenDevice Opened "OpenAL Soft on 扬声器 (Realtek High Definition Audio)"
 [LUA-print]               LOAD Cocos2d-Lua-Community FRAMEWORK
 [LUA-print] ===========================================================
 [LUA-print] # DEBUG = 2
+WARNING: File case-sensitive.
+./././src/quick/functions.lua
+./././src/quick/Functions.lua
+
+
 [LUA-print] `Requires`: 'quick.functions' from file '././src/main.lua' at line[110].
 [LUA-print] #
-[LUA-print] # device.platform              = windows
-[LUA-print] # device.model                 = unknown
-[LUA-print] # device.language              = cn
-[LUA-print] # device.writablePath          = ./cache/
-[LUA-print] # device.directorySeparator    = \
-[LUA-print] # device.pathSeparator         = ;
+[LUA-print] # platform              = windows
+[LUA-print] # model                 = unknown
+[LUA-print] # language              = cn
+[LUA-print] # writablePath          = ./cache/
+[LUA-print] # directorySeparator    = \
+[LUA-print] # pathSeparator         = ;
 [LUA-print] #
-[LUA-print] `Requires`: 'quick.device' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Device' from file '././src/main.lua' at line[110].
 [LUA-print] # CONFIG_SCREEN_AUTOSCALE      = FIXED_WIDTH
 [LUA-print] # CONFIG_SCREEN_WIDTH          = 1136.00
 [LUA-print] # CONFIG_SCREEN_HEIGHT         = 640.00
@@ -43,11 +48,11 @@ alcOpenDevice Opened "OpenAL Soft on 扬声器 (Realtek High Definition Audio)"
 [LUA-print] # display.c_top                = 320.00
 [LUA-print] # display.c_bottom             = -320.00
 [LUA-print] #
-[LUA-print] `Requires`: 'quick.display' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Display' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.scheduler' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'quick.audio' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Audio' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.network' from file '././src/main.lua' at line[110].
-[LUA-print] `Requires`: 'quick.crypto' from file '././src/main.lua' at line[110].
+[LUA-print] `Requires`: 'quick.Crypto' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'cjson' from file 'src/quick/json.lua' at line[6].
 [LUA-print] `Requires`: 'quick.json' from file '././src/main.lua' at line[110].
 [LUA-print] `Requires`: 'quick.shortcodes' from file '././src/main.lua' at line[110].
@@ -58,9 +63,3 @@ alcOpenDevice Opened "OpenAL Soft on 扬声器 (Realtek High Definition Audio)"
 [LUA-print] `Requires`: 'app.MyApp' from file '././src/main.lua' at line[172].
 [LUA-print] `Requires`: 'app.scenes.MainScene' from file 'src/quick/AppBase.lua' at line[56].
 cocos2d: QuadCommand: resizing index size from [-1] to [2560]
-[LUA-print] ---------------------------------------------------
-[LUA-print] LUA VM MEMORY USED: 2235.35 KB
-[LUA-print] "./res/HelloWorld.png" rc=2 id=04FF6990 195 x 270 @ 32 bpp => 205 KB
-"/cc_fps_images" rc=4 id=04FF7410 999 x 54 @ 16 bpp => 105 KB
-TextureCache dumpDebugInfo: 2 textures, for 311 KB (0.30 MB)
-

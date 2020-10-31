@@ -11,130 +11,130 @@ device.getOpenUDID()
 device.openURL(url)
 ]] --
 
-local device = {}
+local Device = {}
 
-device.platform = "unknown"
-device.model = "unknown"
-device.IsWin = false
-device.IsMac = false
-device.IsLinux = false
-device.IsAndroid = false
-device.IsIos = false
-device.IsIphone = false
-device.IsIpad = false
-device.IsOther = false
+Device.platform = "unknown"
+Device.model = "unknown"
+Device.IsWin = false
+Device.IsMac = false
+Device.IsLinux = false
+Device.IsAndroid = false
+Device.IsIos = false
+Device.IsIphone = false
+Device.IsIpad = false
+Device.IsOther = false
 
 -- 平台
 local target = GG.S_Application:getTargetPlatform()
 if target == cc.PLATFORM_OS_WINDOWS then
-    device.platform = "windows"
-    device.IsWin = true
+    Device.platform = "windows"
+    Device.IsWin = true
 elseif target == cc.PLATFORM_OS_LINUX then
-    device.platform = "linux"
-    device.IsLinux = true
+    Device.platform = "linux"
+    Device.IsLinux = true
 elseif target == cc.PLATFORM_OS_MAC then
-    device.platform = "mac"
-    device.IsMac = true
+    Device.platform = "mac"
+    Device.IsMac = true
 elseif target == cc.PLATFORM_OS_ANDROID then
-    device.platform = "android"
-    device.IsAndroid = true
+    Device.platform = "android"
+    Device.IsAndroid = true
 elseif target == cc.PLATFORM_OS_IPHONE or target == cc.PLATFORM_OS_IPAD then
-    device.platform = "ios"
-    device.IsIos = true
+    Device.platform = "ios"
+    Device.IsIos = true
     if target == cc.PLATFORM_OS_IPHONE then
-        device.model = "iphone"
-        device.IsIphone = true
+        Device.model = "iphone"
+        Device.IsIphone = true
     else
-        device.model = "ipad"
-        device.IsIpad = true
+        Device.model = "ipad"
+        Device.IsIpad = true
     end
 else
-    device.IsOther = true
+    Device.IsOther = true
 end
 
 -- 语言
-device.IsCn = false
-device.IsFr = false
-device.IsIt = false
-device.IsGr = false
-device.IsSp = false
-device.IsRu = false
-device.IsKr = false
-device.IsJp = false
-device.IsHu = false
-device.IsPt = false
-device.IsAr = false
-device.IsEn = false
+Device.IsCn = false
+Device.IsFr = false
+Device.IsIt = false
+Device.IsGr = false
+Device.IsSp = false
+Device.IsRu = false
+Device.IsKr = false
+Device.IsJp = false
+Device.IsHu = false
+Device.IsPt = false
+Device.IsAr = false
+Device.IsEn = false
 local language_ = GG.S_Application:getCurrentLanguage()
 if language_ == cc.LANGUAGE_CHINESE then
     language_ = "cn"
-    device.IsCn = true
+    Device.IsCn = true
 elseif language_ == cc.LANGUAGE_FRENCH then
     language_ = "fr"
-    device.IsFr = true
+    Device.IsFr = true
 elseif language_ == cc.LANGUAGE_ITALIAN then
     language_ = "it"
-    device.IsIt = true
+    Device.IsIt = true
 elseif language_ == cc.LANGUAGE_GERMAN then
     language_ = "gr"
-    device.IsGr = true
+    Device.IsGr = true
 elseif language_ == cc.LANGUAGE_SPANISH then
     language_ = "sp"
-    device.IsSp = true
+    Device.IsSp = true
 elseif language_ == cc.LANGUAGE_RUSSIAN then
     language_ = "ru"
-    device.IsRu = true
+    Device.IsRu = true
 elseif language_ == cc.LANGUAGE_KOREAN then
     language_ = "kr"
-    device.IsKr = true
+    Device.IsKr = true
 elseif language_ == cc.LANGUAGE_JAPANESE then
     language_ = "jp"
-    device.IsJp = true
+    Device.IsJp = true
 elseif language_ == cc.LANGUAGE_HUNGARIAN then
     language_ = "hu"
-    device.IsHu = true
+    Device.IsHu = true
 elseif language_ == cc.LANGUAGE_PORTUGUESE then
     language_ = "pt"
-    device.IsPt = true
+    Device.IsPt = true
 elseif language_ == cc.LANGUAGE_ARABIC then
     language_ = "ar"
-    device.IsAr = true
+    Device.IsAr = true
 else
     language_ = "en"
-    device.IsEn = true
+    Device.IsEn = true
 end
 
-device.language = language_
-device.writablePath = GG.S_FileUtils:getWritablePath()
-device.directorySeparator = "/"
-device.pathSeparator = ":"
-if device.platform == "windows" then
-    device.directorySeparator = "\\"
-    device.pathSeparator = ";"
+Device.language = language_
+Device.writablePath = GG.S_FileUtils:getWritablePath()
+Device.directorySeparator = "/"
+Device.pathSeparator = ":"
+if Device.platform == "windows" then
+    Device.directorySeparator = "\\"
+    Device.pathSeparator = ";"
 end
 
 GG.Console.P("#")
-GG.Console.P("# device.platform              = " .. device.platform)
-GG.Console.P("# device.model                 = " .. device.model)
-GG.Console.P("# device.language              = " .. device.language)
-GG.Console.P("# device.writablePath          = " .. device.writablePath)
-GG.Console.P("# device.directorySeparator    = " .. device.directorySeparator)
-GG.Console.P("# device.pathSeparator         = " .. device.pathSeparator)
+GG.Console.P("# platform              = " .. Device.platform)
+GG.Console.P("# model                 = " .. Device.model)
+GG.Console.P("# language              = " .. Device.language)
+GG.Console.P("# writablePath          = " .. Device.writablePath)
+GG.Console.P("# directorySeparator    = " .. Device.directorySeparator)
+GG.Console.P("# pathSeparator         = " .. Device.pathSeparator)
 GG.Console.P("#")
 
-function device.getOpenUDID()
+function Device.getOpenUDID()
     local ret = cc.Device:getOpenUDID()
     if GG.Env.DEBUG > 1 then
-        GG.Console.LF("device.getOpenUDID() - Open UDID: %s", tostring(ret))
+        GG.Console.LF("getOpenUDID() - Open UDID: %s", tostring(ret))
     end
     return ret
 end
 
-function device.openURL(url)
+function Device.openURL(url)
     if GG.Env.DEBUG > 1 then
-        GG.Console.LF("device.openURL() - url: %s", tostring(url))
+        GG.Console.LF("openURL() - url: %s", tostring(url))
     end
     GG.S_Application:openURL(url)
 end
 
-GG.Device = device
+GG.Device = Device
