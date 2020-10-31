@@ -146,6 +146,49 @@ local function Clone(object)
     return _copy(object)
 end
 
+-- 数据转字符串类型
+local function Val2Str(v)
+    return tostring(v) .. "(" .. type(v) .. ")"
+end
+
+-- 数据绑定
+local function BindData(tag, target, key, i_v, t_v)
+    if tag == "new" then
+        local fmt = "new member '%s' of '%s' added, %s."
+        print(fmt:format(key, tostring(target), Val2Str(i_v)))
+    elseif tag == "change" then
+        local fmt = "member '%s' of '%s' changed from '%s' to '%s'."
+        print(fmt:format(key, tostring(target), Val2Str(i_v), Val2Str(t_v)))
+    end
+end
+
+-- 数据监视
+local function WatchData(mt, bind)
+    bind = bind or BindData
+    return setmetatable({}, {
+        __index = function(s, k)
+            local v = rawget(s, k)
+            if v == nil then
+                v = mt[k]
+            end
+            return v
+        end,
+        __newindex = function(s, k, v)
+            local _v = rawget(mt, k)
+            if _v == nil then
+                if type(bind) == "function" then
+                    bind("new", s, k, v)
+                end
+            else
+                if type(bind) == "function" then
+                    bind("change", s, k, _v, v)
+                end
+            end
+            rawset(mt, k, v)
+        end
+    })
+end
+
 -- 魔法系列
 local Magic = {
     __name = "GG.Magic",
@@ -153,6 +196,9 @@ local Magic = {
     ReadOnlyTable = ReadOnlyTable,
     CatchLuaError = CatchLuaError,
     Idle = Idle,
+    Watch = WatchData,
+    BindData = BindData,
+    Value2Str = Val2Str,
     Pack = Pack,
     Class = Class,
     Clone = Clone,
